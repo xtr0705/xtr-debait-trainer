@@ -11,9 +11,31 @@ function Signup() {
         email,
         password,
       });
+    console.log(data)
+    console.log(error)
 
-    console.log("DATA:", data);
-    console.log("ERROR:", error);
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    console.log(user)
+
+    console.log("AUTH UID:", user.id);
+    const response = await supabase
+      .from("profiles")
+      .insert({
+        id: user.id,
+        username: "xtrrrr",
+      })
+      .select();
+
+    console.log(response);
+
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
+    console.log("SESSION USER:", session?.user?.id);
   };
 
   return (
