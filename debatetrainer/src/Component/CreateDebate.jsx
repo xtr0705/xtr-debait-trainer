@@ -2,9 +2,7 @@ import { supabase } from "../lib/supabase";
 
 function CreateDebate() {
   const createDebate = async ()=>{
-    const{
-      data:{user},
-    }=await supabase.auth.getUser();
+    const{data:{user}}=await supabase.auth.getUser();
     
     console.log(user.id)
   
@@ -20,6 +18,8 @@ function CreateDebate() {
     console.log(response);
   
   }
+
+
 
 
   return (

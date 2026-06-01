@@ -5,6 +5,8 @@ import Signup from './Component/Signup';
 import { supabase } from './lib/supabase';
 import CreateDebate from './Component/CreateDebate';
 import GetDebate from './Component/GetDebate';
+import InsertMessage from './Component/InsertMessage';
+import GetMessage from './Component/GetMessage';
 
 function App() {
 
@@ -34,6 +36,8 @@ useEffect(() => {
       <button onClick={logout} >logout user</button>
       <CreateDebate />
       <GetDebate />
+      <InsertMessage />
+      <GetMessage />
     </>
   )
 }
