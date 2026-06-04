@@ -2,9 +2,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
-import CreateDebate from "./Component/CreateDebate";
-import ChatDebate from "./Component/ChatDebate";
-import DebateReport from "./Component/DebateReport";
+import CreateDebate from "./Pages/CreateDebate";
+import ChatDebate from "./Pages/ChatDebate";
 
 function App() {
   return (
@@ -28,11 +27,6 @@ function App() {
         <Route
           path="/debate/:debateId"
           element={<ChatDebate />}
-        />
-
-        <Route
-          path="/report/:debateId"
-          element={<DebateReport />}
         />
       </Routes>
     </BrowserRouter>

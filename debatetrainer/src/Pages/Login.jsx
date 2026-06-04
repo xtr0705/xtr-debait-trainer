@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { supabase } from "../lib/supabase";
+import  supabase  from "../lib/supabase";
 import { useNavigate, Link } from "react-router-dom";
 
 function Login() {
