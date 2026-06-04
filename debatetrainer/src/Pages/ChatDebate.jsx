@@ -1,12 +1,48 @@
 import supabase from '../lib/supabase.js';
 import {useState,useEffect} from 'react';
 import {useParams} from 'react-router-dom';
+import { getAIResponse } from '../lib/gemini.js';
 
 function ChatDebate(){
   const [debateinfo,setDebateInfo] = useState(null);
   const {debateId}=useParams();
   const [messages,setMessages] = useState([]);
   const [newMessage,setNewMessage]=useState('');
+
+  const generateAIResponse = async()=>{
+    const transcriptArray = messages.map(
+      (message)=> `${message.sender}: ${message.message}`
+    );
+
+    const convoHistory = transcriptArray.join("\n\n");
+
+    const prompt = `
+    You are participating in a debate.
+
+    Topic:${debateinfo.topic}
+
+    Mode:${debateinfo.mode}
+
+    Conversation:${convoHistory}
+
+    Respond as the AI debater.
+    `;
+
+    const aiResponse = await getAIResponse(prompt);
+
+    const {data,error} = await supabase.from('debate_messages').insert({
+      sender:'ai',
+      debateId:debateId,
+      message:aiResponse
+    }).select('*').single();
+    if (error) {
+      console.log(error)
+    }else{
+      setMessages(prev=>[...prev,data]);
+      setNewMessage
+    }
+
+  }
 
   const sendMessage = async()=>{
     if(newMessage.trim() === ''){
@@ -28,7 +64,11 @@ function ChatDebate(){
   }
 
   const fetchMessages = async ()=>{
-    const {data,error}= await supabase.from('debate_messages').select('*').eq('debate_id',debateId).order('created_at',{ascending:true});
+    const {data,error}= await supabase
+      .from('debate_messages')
+      .select('*')
+      .eq('debate_id',debateId)
+      .order('created_at',{ascending:true});
     if(error){
       console.log(error);
     }else{
@@ -66,11 +106,12 @@ function ChatDebate(){
       {messages.length > 0 && (
         <div>
           <h2>Messages:</h2>
-          {messages.map((message)=>(
+          {messages.((message)=>(
             <div key={message.id}>
               <p>{message.message}</p>
               <small>{new Date(message.created_at).toLocaleString()}</small>
             </div>
+            
           ))}
         </div>
       )}
