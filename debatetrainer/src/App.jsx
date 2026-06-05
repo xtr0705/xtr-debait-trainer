@@ -5,6 +5,7 @@ import Signup from "./Pages/Signup";
 import CreateDebate from "./Pages/CreateDebate";
 import ChatDebate from "./Pages/ChatDebate";
 import DebateReport from "./Pages/DebateReport";
+import Home from "./Pages/Home";
 
 function App() {
   return (
@@ -12,6 +13,10 @@ function App() {
       <Routes>
         <Route
           path="/"
+          element={<Home />}
+        />
+        <Route
+          path="/create-debate/:debateId"
           element={<CreateDebate />}
         />
 
