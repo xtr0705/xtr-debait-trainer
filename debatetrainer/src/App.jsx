@@ -4,6 +4,7 @@ import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import CreateDebate from "./Pages/CreateDebate";
 import ChatDebate from "./Pages/ChatDebate";
+import DebateReport from "./Pages/DebateReport";
 
 function App() {
   return (
@@ -27,6 +28,10 @@ function App() {
         <Route
           path="/debate/:debateId"
           element={<ChatDebate />}
+        />
+        <Route
+          path="/DebateReport/:debateId"
+          element={<DebateReport />}
         />
       </Routes>
     </BrowserRouter>

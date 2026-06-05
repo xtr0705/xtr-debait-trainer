@@ -12,14 +12,15 @@ function ChatDebate() {
   const navigate = useNavigate();
 
   const debateOver = async () => {
-    const { error } = await supabase.from('debates').insert({
-      ended_at: 'current time and date',
+    const { error } = await supabase.from('debates').update({
+      ended_at: new Date().toISOString(),
       status: 'Finished'
-    });
+    }).eq('id', debateId);
     if (error) {
       console.log(error);
     } else {
-      navigate('')
+      await generateAIResult(messages);
+      navigate(`/DebateReport/${debateId}`);
     }
   }
 
@@ -41,7 +42,7 @@ Mode:
 ${debateinfo.mode}
 
 Conversation:
-${conversationHistory}
+${convoHistory}
 
 Evaluate ONLY the USER'S performance.
 
@@ -54,6 +55,10 @@ Scoring Rules:
 - weakest_argument: The user's weakest argument from the debate.
 - improvement_tip: One practical suggestion for improvement.
 - winner: Must be either "user", "ai", or "draw".
+
+Do not inflate scores.
+Average performance should be around 50-70.
+Reserve scores above 90 for exceptional debates.
 
 Return ONLY valid JSON.
 
@@ -68,28 +73,35 @@ Example format:
   "improvement_tip": "Use more evidence to support claims.",
   "winner": "user"
 }
-`; 
-  const reportText = await getAIResponse(prompt);
-  const report = JSON.parse(reportText);
-  const insertReport= async ()=>{
-    try{
-      const {data,error} = await supabase.from('debate_reports').insert({
-        debate_id:debateId,
-        persuasion_score:report.persuasion_score,
-        logic_score:report.logic_score,
-        strongest_arguement:report.strongest_argument,
-        weakest_argument:report.weakest_argument,
-      improvement_tip:report.improvement_tip,
-      overall_score:report.overall_score
-      });
-    }catch(error){
-      console.log(error)
-    }
-  }
+`;
+      const reportText = await getAIResponse(prompt);
+      console.log(reportText);
+      const report = JSON.parse(reportText);
+      try {
+        const { data, error } = await supabase.from('debate_reports').insert({
+          debate_id: debateId,
+          persuasion_score: report.persuasion_score,
+          logic_score: report.logic_score,
+          strongest_argument: report.strongest_argument,
+          weakest_argument: report.weakest_argument,
+          improvement_tip: report.improvement_tip,
+          overall_score: report.overall_score,
+          winner: report.winner
+        })
+        .select('*')
+        .single()
 
-}catch(error){
-  console.log(error);
-}
+        if (error) {
+          console.log(error);
+          return;
+        }
+      } catch (error) {
+        console.log(error)
+      }
+
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   const generateAIResponse = async (convoMessages) => {
@@ -219,6 +231,7 @@ Example format:
         >
           {aiIsThinking ? "AI Thinking..." : "Send"}
         </button>
+        <button onClick={debateOver} >End debate</button>
       </div>
     </div>
   )
