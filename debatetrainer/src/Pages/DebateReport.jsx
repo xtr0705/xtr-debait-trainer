@@ -1,18 +1,39 @@
+import { useParams } from "react-router-dom";
+import supabase from "../lib/supabase";
+import { useEffect, useState } from "react";
 
 function DebateReport() {
+  const { debateId } = useParams();
+  const [report, setReport] = useState(null);
 
-  const report = {
-    persuasion_score: 78,
-    logic_score: 84,
-    overall_score: 81,
-    strongest_argument:
-      "Online education provides similar technical skills at a significantly lower cost.",
-    weakest_argument:
-      "Online networking is always equal to in-person networking.",
-    improvement_tip:
-      "Support major claims with real-world examples and statistics.",
-    winner: "user",
-  };
+  useEffect(() => {
+    const FetchReport = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('debate_reports')
+          .select('*')
+          .eq('debate_id', debateId)
+          .single();
+        if (error) {
+          console.log(error)
+        } else {
+          console.log(data);
+          setReport(data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    FetchReport();
+  }, [debateId])
+
+  if (!report) {
+    return (
+      <div className="min-h-screen bg-slate-950 flex items-center justify-center text-white">
+        Loading Report...
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-slate-950 text-white p-6">
