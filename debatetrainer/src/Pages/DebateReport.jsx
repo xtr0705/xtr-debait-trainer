@@ -42,8 +42,10 @@ function DebateReport() {
 
         <div className="text-center mb-10">
           <h1 className="text-4xl font-bold">
-            Debate Report
+            Debate Result
           </h1>
+
+          <h2>{report.topic}</h2>
 
           <p className="text-slate-400 mt-2">
             AI Evaluation Summary
