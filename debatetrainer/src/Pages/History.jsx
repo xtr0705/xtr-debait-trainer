@@ -24,8 +24,8 @@ function DebateHistory() {
       if (error) {
         console.log(error);
       } else {
+        setHistory(data||[])
         setLoading(false);
-        setHistory(data)
       }
     };
     fetchHistory();
@@ -34,16 +34,27 @@ function DebateHistory() {
 
   if (loading) {
   return (
-    <div className="
-      min-h-screen
-      bg-[#09090B]
-      flex
-      items-center
-      justify-center
-      text-zinc-400
-    ">
-      Loading History...
-    </div>
+    <div className="text-center">
+
+  <div
+    className="
+      w-12
+      h-12
+      border-4
+      border-violet-500
+      border-t-transparent
+      rounded-full
+      animate-spin
+      mx-auto
+      mb-4
+    "
+  />
+
+  <p className="text-zinc-400">
+    Loading History...
+  </p>
+
+</div>
   );
 }
 
@@ -68,7 +79,7 @@ function DebateHistory() {
 
   <div className="relative p-6">
 
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-6xl mx-auto">
 
        <div className="mb-14 text-center">
 
@@ -185,11 +196,16 @@ hover:shadow-[0_0_30px_rgba(139,92,246,0.08)]
 
                 </div>
 
-                <div className="mt-6 flex items-center justify-between">
+                <div onClick={(e) =>{
+
+                  e.stopPropagation();
+                  navigate(`/DebateReport/${report.debate_id}`)
+                }
+} className="mt-6 flex items-center justify-between">
 
                   <div>
 
-                    <p className="text-slate-500 text-sm">
+                    <p className="text-zinc-500 text-sm">
                       Overall Score
                     </p>
 

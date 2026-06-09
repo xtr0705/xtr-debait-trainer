@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 function DebateReport() {
   const navigate = useNavigate();
   const { debateId } = useParams();
-  const [report, setReport] = useState(null); 
+  const [report, setReport] = useState(null);
 
   useEffect(() => {
     const FetchReport = async () => {
@@ -37,9 +37,9 @@ flex
 items-center
 justify-center
 ">
-  <div className="text-center">
+        <div className="text-center">
 
-    <div className="
+          <div className="
       w-12
       h-12
       border-4
@@ -51,52 +51,54 @@ justify-center
       mb-4
     "/>
 
-    <p className="text-zinc-400">
-      Loading Report...
-    </p>
+          <p className="text-zinc-400">
+            Loading Report...
+          </p>
 
-  </div>
-</div>
+        </div>
+      </div>
     );
   }
 
   return (
-   <div className="
+    <div className="
+    pt-4
+    pb-4
 min-h-screen
 bg-[#09090B]
 text-white
 relative
 overflow-hidden
 ">
-  <div
-    className="
+      <div
+        className="
       absolute
       inset-0
       bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.06),transparent_50%)]
       pointer-events-none
     "
-  />
+      />
 
       <div className="max-w-4xl mx-auto">
 
         <div className="text-center mb-14">
 
-  <p className="text-zinc-500 uppercase tracking-widest mb-4">
-    AI Evaluation Report
-  </p>
+          <p className="text-zinc-500 uppercase tracking-widest mb-4">
+            AI Evaluation Report
+          </p>
 
-  <h1 className="text-5xl font-serif mb-4">
-    Debate Result
-  </h1>
+          <h1 className="text-5xl font-serif mb-4">
+            Debate Result
+          </h1>
 
-  <h2 className="text-2xl text-zinc-300">
-    {report[0].topic}
-  </h2>
+          <h2 className="text-2xl text-zinc-300">
+            {report[0].topic}
+          </h2>
 
-</div>
+        </div>
 
         <div
-  className="
+          className="
     bg-gradient-to-br
     from-zinc-900
     to-black
@@ -112,23 +114,23 @@ overflow-hidden
 
     mb-10
   "
->
+        >
 
-  <p className="text-zinc-500 uppercase tracking-widest mb-3">
-    Final Verdict
-  </p>
+          <p className="text-zinc-500 uppercase tracking-widest mb-3">
+            Final Verdict (winner)
+          </p>
 
 
-  <h3 className="text-4xl font-serif capitalize">
-    {report[0].winner}
-  </h3>
+          <h3 className="text-4xl font-serif capitalize">
+            {report[0].winner}
+          </h3>
 
-</div>
+        </div>
 
         <div className="grid md:grid-cols-3 gap-6 mb-8">
 
           <div
-  className="
+            className="
     group
 
     bg-gradient-to-br
@@ -147,7 +149,7 @@ overflow-hidden
     hover:-translate-y-1
     hover:shadow-[0_0_30px_rgba(139,92,246,0.08)]
   "
->
+          >
             <h3 className="text-zinc-500 mb-3">
               Persuasion Score
             </h3>
@@ -158,7 +160,7 @@ overflow-hidden
           </div>
 
           <div
-  className="
+            className="
     group
 
     bg-gradient-to-br
@@ -177,7 +179,7 @@ overflow-hidden
     hover:-translate-y-1
     hover:shadow-[0_0_30px_rgba(139,92,246,0.08)]
   "
->
+          >
             <h3 className="text-zinc-500 mb-3">
               Logic Score
             </h3>
@@ -188,7 +190,7 @@ overflow-hidden
           </div>
 
           <div
-  className="
+            className="
     group
 
     bg-gradient-to-br
@@ -207,7 +209,7 @@ overflow-hidden
     hover:-translate-y-1
     hover:shadow-[0_0_30px_rgba(139,92,246,0.08)]
   "
->
+          >
             <h3 className="text-zinc-500 mb-3">
               Overall Score
             </h3>
@@ -222,7 +224,7 @@ overflow-hidden
         <div className="space-y-6">
 
           <div
-  className="
+            className="
     group
 
     bg-gradient-to-br
@@ -242,7 +244,7 @@ overflow-hidden
     hover:-translate-y-1
     hover:shadow-[0_0_30px_rgba(139,92,246,0.08)]
   "
->
+          >
             <h2 className="text-xl font-semibold mb-3 text-green-400 border-green-500/20">
               Strongest Argument
             </h2>
@@ -253,14 +255,14 @@ overflow-hidden
           </div>
 
           <div
-  className="
+            className="
     group
 
     bg-gradient-to-br
     from-zinc-900
     to-black
 
-    border
+    
     border-zinc-800
 
     p-8
@@ -272,7 +274,7 @@ overflow-hidden
     hover:-translate-y-1
     hover:shadow-[0_0_30px_rgba(139,92,246,0.08)]
   "
->
+          >
             <h2 className="text-xl font-semibold mb-3 text-red-400 border-red-500/20">
               Weakest Argument
             </h2>
@@ -283,14 +285,13 @@ overflow-hidden
           </div>
 
           <div
-  className="
+            className="
     group
 
     bg-gradient-to-br
     from-zinc-900
     to-black
 
-    border
     border-zinc-800
 
     p-8
@@ -302,7 +303,7 @@ overflow-hidden
     hover:-translate-y-1
     hover:shadow-[0_0_30px_rgba(139,92,246,0.08)]
   "
->
+          >
             <h2 className="text-xl font-semibold mb-3 text-blue-400 border-blue-500/20">
               Improvement Tip
             </h2>
@@ -316,7 +317,11 @@ overflow-hidden
           <div className="flex justify-center gap-7.5" >
 
             <button
-className="
+              onClick={
+                ()=>navigate('/')
+              }
+              className="
+
 group
 relative
 overflow-hidden
@@ -336,9 +341,9 @@ hover:bg-violet-400
 hover:-translate-y-0.5
 hover:shadow-[0_0_25px_rgba(139,92,246,0.25)]
 "
->
-Home
-</button>
+            >
+              Home
+            </button>
             <button className="
 border
 border-zinc-800
@@ -357,9 +362,9 @@ hover:-translate-y-0.5
 
 hover:shadow-[0_0_20px_rgba(139,92,246,0.08)]
 "
-            onClick={()=>{
-              navigate('/History/:user_id');
-            }}
+              onClick={() => {
+                navigate('/History/:user_id');
+              }}
             >History</button>
           </div>
 

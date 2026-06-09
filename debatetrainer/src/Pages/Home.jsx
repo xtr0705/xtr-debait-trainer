@@ -380,7 +380,7 @@ hover:shadow-[0_0_30px_rgba(249,115,22,0.12)]
       />
 
       <img
-  src="/chat-preview.png"
+  src="src/assets/AIchat.png"
   alt="AI Debate Arena Chat"
   className="
     relative
