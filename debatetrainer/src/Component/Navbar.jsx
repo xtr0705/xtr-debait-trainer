@@ -2,61 +2,121 @@ import { Link } from "react-router-dom";
 
 function Navbar() {
   return (
-    <nav className="sticky top-0 z-50 backdrop-blur-xl bg-slate-950/70 border-b border-slate-800">
-      <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+    <nav className="sticky top-0 z-50 backdrop-blur-xl bg-[#09090B]/70 border-b border-zinc-800">
 
-        <Link
-          to="/"
-          className="text-xl font-bold tracking-tight"
-        >
-          AI Debate Arena
-        </Link>
+  <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
 
-        <div className="hidden md:flex items-center gap-8">
+    <Link
+      to="/"
+      className="
+        text-xl
+        font-bold
+        tracking-tight
+        font-serif
+      "
+    >
+      AI Debate Arena
+    </Link>
 
-          <a
-            href="#how-it-works"
-            className="text-slate-400 hover:text-white transition"
-          >
-            How It Works
-          </a>
+    <div className="hidden md:flex items-center gap-8">
 
-          <a
-            href="#opponents"
-            className="text-slate-400 hover:text-white transition"
-          >
-            Opponents
-          </a>
+      <a
+        href="#how-it-works"
+        className="
+          text-zinc-400
+          transition-all
+          duration-300
+          hover:text-violet-300
+          hover:-translate-y-0.5
+        "
+      >
+        How It Works
+      </a>
 
-          <a
-            href="/History/:user_id"
-            className="text-slate-400 hover:text-white transition"
-          >
-            Debate Results
-          </a>
+      <a
+        href="#opponents"
+        className="
+          text-zinc-400
+          transition-all
+          duration-300
+          hover:text-violet-300
+          hover:-translate-y-0.5
+        "
+      >
+        Opponents
+      </a>
 
-        </div>
+      <a
+        href="/History/:user_id"
+        className="
+          text-zinc-400
+          transition-all
+          duration-300
+          hover:text-violet-300
+          hover:-translate-y-0.5
+        "
+      >
+        Debate Results
+      </a>
 
-        <Link
-          to="/create-debate"
-          className="
-            bg-white
-            text-black
-            px-5
-            py-2.5
-            font-medium
-            transition-all
-            duration-300
-            hover:scale-105
-            hover:bg-slate-200
-            active:scale-95
-          "
-        >
-          Start Debate
-        </Link>
+    </div>
 
-      </div>
-    </nav>
+    <Link
+      to="/create-debate"
+      className="
+        group
+        relative
+        overflow-hidden
+
+        bg-violet-500
+        text-white
+
+        px-5
+        py-2.5
+
+        
+        font-medium
+
+        transition-all
+        duration-300
+
+        hover:bg-violet-400
+        hover:-translate-y-0.5
+        hover:shadow-[0_0_20px_rgba(139,92,246,0.25)]
+      "
+    >
+
+      <span
+        className="
+          absolute
+          top-0
+          left-[-150%]
+          h-full
+          w-[50%]
+
+          bg-linear-to-r
+          from-transparent
+          via-white/20
+          to-transparent
+
+          skew-x-12
+
+          group-hover:left-[150%]
+
+          transition-all
+          duration-700
+        "
+      />
+
+      <span className="relative">
+        Start Debate
+      </span>
+
+    </Link>
+
+  </div>
+
+</nav>
   );
 }
 
