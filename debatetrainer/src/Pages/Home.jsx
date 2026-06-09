@@ -186,6 +186,35 @@ rounded-2xl
 p-8
 transition-all
 duration-300
+hover:border-red-500/40
+hover:-translate-y-1
+hover:shadow-[0_0_30px_rgba(239,68,68,0.12)]
+">
+
+  <h3 className="text-2xl font-heading font-serif mb-4">
+    Aggressive Challenger
+  </h3>
+
+  <p className="text-slate-400">
+    Challenges every weakness instantly.
+    Pushes back hard, questions assumptions,
+    and applies constant pressure to your arguments.
+  </p>
+
+</div>
+            <div className="
+group
+relative
+overflow-hidden
+bg-gradient-to-br
+from-zinc-900
+to-black
+border
+border-zinc-800
+rounded-2xl
+p-8
+transition-all
+duration-300
 hover:border-emerald-500/40
 hover:-translate-y-1
 hover:shadow-[0_0_30px_rgba(16,185,129,0.12)]
@@ -287,8 +316,12 @@ hover:shadow-[0_0_30px_rgba(6,182,212,0.12)]
                 But every answer is examined.
               </p>
             </div>
+    </div>
 
-            <div className="
+            <div className="flex justify-center mt-6">
+
+  <div className="w-full md:w-[60%]">
+    <div className="
 group
 relative
 overflow-hidden
@@ -315,6 +348,10 @@ hover:shadow-[0_0_30px_rgba(249,115,22,0.12)]
                 counterarguments to challenge your position.
               </p>
             </div>
+  </div>
+
+
+            
 
           </div>
 

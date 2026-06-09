@@ -5,12 +5,14 @@ function DebateHistory() {
 
   const [history, setHistory] = useState([]);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchHistory = async () => {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
 
+      setLoading(true);
       const { data, error } = await supabase
         .from('debate_reports')
         .select('*')
@@ -22,6 +24,7 @@ function DebateHistory() {
       if (error) {
         console.log(error);
       } else {
+        setLoading(false);
         setHistory(data)
       }
     };
@@ -29,36 +32,91 @@ function DebateHistory() {
   }, []);
 
 
+  if (loading) {
+  return (
+    <div className="
+      min-h-screen
+      bg-[#09090B]
+      flex
+      items-center
+      justify-center
+      text-zinc-400
+    ">
+      Loading History...
+    </div>
+  );
+}
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white p-6">
+<div
+  className="
+    min-h-screen
+    bg-[#09090B]
+    text-white
+    relative
+    overflow-hidden
+  "
+>
+  <div
+    className="
+      absolute
+      inset-0
+      bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.06),transparent_50%)]
+      pointer-events-none
+    "
+  />
+
+  <div className="relative p-6">
 
       <div className="max-w-5xl mx-auto">
 
-        <div className="mb-10">
-          <h1 className="text-4xl font-bold">
-            Debate History
-          </h1>
+       <div className="mb-14 text-center">
 
-          <p className="text-slate-400 mt-2">
-            Review your previous debates and performance.
-          </p>
-        </div>
+  <p className="text-zinc-500 uppercase tracking-widest mb-4">
+    Your Performance Archive
+  </p>
+
+  <h1 className="text-5xl font-serif mb-4">
+    Debate History
+  </h1>
+
+  <p className="text-zinc-400">
+    Review previous debates and track your growth.
+  </p>
+
+</div>
 
         <div className="space-y-4">
 
           {history.length === 0 ? (
-            <div className="text-center py-24">
+            <div className="text-center py-32">
 
-              <h2 className="text-2xl font-semibold mb-3">
-                No debates yet
-              </h2>
+  <h2 className="text-3xl font-serif mb-4">
+    No Debates Yet
+  </h2>
 
-              <p className="text-slate-400">
-                Start your first debate and your history will appear here.
-              </p>
+  <p className="text-zinc-400 mb-8">
+    Start your first debate and your reports will appear here.
+  </p>
 
-            </div>
+  <button
+    onClick={() => navigate("/create-debate")}
+    className="
+      bg-violet-500
+      px-8
+      py-4
+
+      transition-all
+      duration-300
+
+      hover:bg-violet-400
+      hover:shadow-[0_0_20px_rgba(139,92,246,0.25)]
+    "
+  >
+    Start Debate
+  </button>
+
+</div>
           ) : (
 
 
@@ -67,9 +125,22 @@ function DebateHistory() {
               <div
                 key={report.id}
                 className="
-              bg-slate-900
+              
               border
-              border-slate-800
+              bg-gradient-to-br
+from-zinc-900
+to-black
+
+border
+border-zinc-800
+
+transition-all
+duration-300
+
+hover:border-violet-500/30
+hover:-translate-y-1
+
+hover:shadow-[0_0_30px_rgba(139,92,246,0.08)]
               rounded-2xl
               p-6
               hover:border-slate-700
@@ -86,7 +157,7 @@ function DebateHistory() {
                       {report.topic}
                     </h2>
 
-                    <p className="text-slate-500 text-sm mt-1">
+                    <p className="text-zinc-500 text-sm mt-1">
                       {new Date(report.created_at).toLocaleDateString()}
                     </p>
 
@@ -97,6 +168,7 @@ function DebateHistory() {
                     px-3
                     py-1
                     rounded-full
+                    uppercase tracking-wide
                 text-sm
                 font-medium
                 
@@ -121,7 +193,7 @@ function DebateHistory() {
                       Overall Score
                     </p>
 
-                    <p className="text-3xl font-bold">
+                    <p className="text-4xl font-bold">
                       {report.overall_score}
                     </p>
 
@@ -133,16 +205,26 @@ function DebateHistory() {
                         `/DebateReport/${report.debate_id}`
                       )
                     }
-                    className="
-                  bg-white
-                  text-black
-                  px-5
-                  py-2
-                  rounded-xl
-                  font-medium
-                  hover:bg-slate-200
-                  transition
-                  "
+                   className="
+group
+relative
+overflow-hidden
+
+bg-violet-500
+text-white
+
+px-5
+py-3
+
+font-medium
+
+transition-all
+duration-300
+
+hover:bg-violet-400
+hover:-translate-y-0.5
+hover:shadow-[0_0_20px_rgba(139,92,246,0.25)]
+"
                   >
                     View Report
                   </button>
@@ -158,6 +240,7 @@ function DebateHistory() {
 
       </div>
 
+    </div>
     </div>
   );
 }

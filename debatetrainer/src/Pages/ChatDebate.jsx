@@ -12,6 +12,20 @@ function ChatDebate() {
   const [aiIsThinking, setAiIsthinking] = useState(false);
   const messageRef = useRef(null);
   const navigate = useNavigate();
+  const [showEndModal, setShowEndModal] = useState(false);
+  const [isGeneratingReport, setIsGeneratingReport] = useState(false);
+  const loadingMessages = [
+  "Analyzing debate transcript...",
+  "Evaluating reasoning quality...",
+  "Measuring persuasion strength...",
+  "Identifying strongest arguments...",
+  "Generating improvement feedback...",
+  "Finalizing report..."
+];
+
+const [loadingText, setLoadingText] = useState(
+  loadingMessages[0]
+);
 
 
   useEffect(() => {
@@ -20,18 +34,27 @@ function ChatDebate() {
     });
   }, [messages])
 
-  const debateOver = async () => {
-    const { error } = await supabase.from('debates').update({
-      ended_at: new Date().toISOString(),
-      status: 'Finished'
-    }).eq('id', debateId);
+  const confirmEndDebate = async ()=>{
+    setIsGeneratingReport(true);
+
+    const { error } = await supabase
+      .from("debates")
+      .update({
+        ended_at: new Date().toISOString(),
+        status: "Finished",
+      })
+      .eq("id", debateId);
+  
     if (error) {
       console.log(error);
+      setIsGeneratingReport(false);
     } else {
       await generateAIResult(messages);
       navigate(`/DebateReport/${debateId}`);
     }
   }
+
+
 
   const generateAIResult = async (convoMessages) => {
     try {
@@ -216,7 +239,7 @@ Example format:
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "Escape") {
-        debateOver();
+        setShowEndModal(true);
       }
     };
 
@@ -230,86 +253,143 @@ Example format:
     };
   }, []);
 
+  useEffect(() => {
+  if (!isGeneratingReport) return;
+
+  let index = 0;
+
+  const interval = setInterval(() => {
+    index = (index + 1) % loadingMessages.length;
+
+    setLoadingText(
+      loadingMessages[index]
+    );
+  }, 2000);
+
+  return () => clearInterval(interval);
+
+}, [isGeneratingReport]);
+
+  const modeNames = {
+  professional: "Professional Debater",
+  aggressive: "Aggressive Challenger",
+  lawyer: "Lawyer",
+  philosopher: "Philosopher",
+  "twitter-troll": "Twitter Troll",
+  "devils-advocate": "Devil's Advocate",
+  "job-interview": "Job Interviewer",
+};
+
   const modeColors = {
-    professional: {
-      glow: "from-blue-500/20",
-      border: "border-blue-500/30",
-      accent: "text-blue-400"
-    },
-    lawyer: {
-      glow: "from-emerald-500/20",
-      border: "border-emerald-500/30",
-      accent: "text-emerald-400"
-    },
-    philosopher: {
-      glow: "from-purple-500/20",
-      border: "border-purple-500/30",
-      accent: "text-purple-400"
-    },
-    aggressive: {
-      glow: "from-red-500/20",
-      border: "border-red-500/30",
-      accent: "text-red-400"
-    },
-    "twitter-troll": {
-      glow: "from-orange-500/20",
-      border: "border-orange-500/30",
-      accent: "text-orange-400"
-    },
-    "devils-advocate": {
-      glow: "from-amber-500/20",
-      border: "border-amber-500/30",
-      accent: "text-amber-400"
-    },
-    "job-interview": {
-      glow: "from-cyan-500/20",
-      border: "border-cyan-500/30",
-      accent: "text-cyan-400"
-    }
-  };
+  professional: {
+    bgGlow: "rgba(59,130,246,0.12)",
+    border: "border-blue-500/30",
+    accent: "text-blue-400"
+  },
+
+  lawyer: {
+    bgGlow: "rgba(16,185,129,0.12)",
+    border: "border-emerald-500/30",
+    accent: "text-emerald-400"
+  },
+
+  philosopher: {
+    bgGlow: "rgba(139,92,246,0.12)",
+    border: "border-violet-500/30",
+    accent: "text-violet-400"
+  },
+
+  aggressive: {
+    bgGlow: "rgba(239,68,68,0.12)",
+    border: "border-red-500/30",
+    accent: "text-red-400"
+  },
+
+  "twitter-troll": {
+    bgGlow: "rgba(249,115,22,0.12)",
+    border: "border-orange-500/30",
+    accent: "text-orange-400"
+  },
+
+  "devils-advocate": {
+    bgGlow: "rgba(245,158,11,0.12)",
+    border: "border-amber-500/30",
+    accent: "text-amber-400"
+  },
+
+  "job-interview": {
+    bgGlow: "rgba(6,182,212,0.12)",
+    border: "border-cyan-500/30",
+    accent: "text-cyan-400"
+  }
+};
 
   const theme =
     modeColors[debateinfo?.mode] ||
     modeColors.professional;
 
-  return (
-    <motion.div 
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    transition={{ duration: 0.4 }}
     
-    className="min-h-screen bg-slate-950 text-white flex flex-col relative overflow-hidden">
+
+  return (
+    <motion.div
+  initial={{
+    opacity: 0,
+    y: 20
+  }}
+  animate={{
+    opacity: 1,
+    y: 0
+  }}
+  transition={{
+    duration: 0.4
+  }}
+    
+    className="
+min-h-screen
+bg-[#09090B]
+text-white
+flex
+flex-col
+relative
+overflow-hidden
+">
       <div
-        className={`
-    absolute
-    inset-0
-    bg-linear-to-br
-    ${theme.glow}
-    via-transparent
-    to-transparent
-    pointer-events-none
-  `}
-      />
+  className="absolute inset-0 pointer-events-none"
+  style={{
+    background: `radial-gradient(
+      circle at top,
+      ${theme.bgGlow},
+      transparent 50%
+    )`
+  }}
+/>
 
-
-      <div className="border-b border-slate-800 bg-slate-950/80 backdrop-blur sticky top-0 z-10">
+      <div className="border-b bg-[#09090B]/80
+border-zinc-800
+backdrop-blur-xl backdrop-blur sticky top-0 z-10">
 
         <div className="max-w-5xl mx-auto px-6 py-5 flex items-center justify-between">
 
           <div>
 
-            <h1 className="text-2xl font-bold">
-              {debateinfo?.topic}
-            </h1>
+            <h1 className="text-2xl font-serif">
+  {debateinfo?.topic}
+</h1>
 
-            <p className="text-slate-400 text-sm mt-1">
-              {debateinfo?.mode} • {debateinfo?.duration} min
-            </p>
+<p
+  className={`
+    text-sm
+    mt-1
+    font-medium
+    ${theme.accent}
+  `}
+>
+{modeNames[debateinfo?.mode]}</p>
 
           </div>
 
           <button
-            onClick={debateOver}
+            onClick={() => setShowEndModal(true)}
             className="
           bg-red-500/10
           border
@@ -362,8 +442,10 @@ Example format:
               px-5
               py-4
               ${message.sender === "user"
-                    ? "bg-white text-black"
-                    : "bg-slate-900 border border-slate-800"
+                    ? "bg-zinc-200 text-black "
+                    : `bg-gradient-to-br
+from-zinc-900
+to-black border ${theme.border}`
                   }
             `}
               >
@@ -375,7 +457,7 @@ Example format:
       w-2 h-2
       ${message.sender === "user"
                         ? "bg-black"
-                        : "bg-blue-400"
+                        : theme.accent.replace("text", "bg")
                       }
     `}
                   />
@@ -406,7 +488,17 @@ Example format:
           {aiIsThinking && (
             <div className="flex justify-start">
 
-              <div className="bg-slate-900 border border-slate-800 px-5 py-4">
+              <div
+  className={`
+    bg-gradient-to-br
+    from-zinc-900
+    to-black
+    border
+    ${theme.border}
+    px-5
+    py-4
+  `}
+>
 
                 <div className="flex gap-2">
 
@@ -435,7 +527,8 @@ Example format:
       </div>
 
 
-      <div className="border-t border-slate-800 bg-slate-950">
+      <div className="border-t border-slate-800 bg-[#09090B]
+border-zinc-800">
 
         <div className="max-w-5xl mx-auto p-6 flex gap-4">
 
@@ -449,29 +542,31 @@ Example format:
             }}
             onChange={(e) => setNewMessage(e.target.value)}
             placeholder="Challenge the AI..."
-            className="
-          flex-1
-          bg-slate-900
-          border
-          border-slate-800
-          px-5
-          py-4
-          text-white
-          placeholder:text-slate-500
-          focus:outline-none
-          focus:border-blue-500
-        "
+            className={`
+flex-1
+bg-black/50
+border-zinc-800
+border
+border-slate-800
+px-5
+py-4
+text-white
+placeholder:text-slate-500
+focus:outline-none
+${theme.border}
+`}
           />
 
           <button
             disabled={aiIsThinking}
             onClick={sendMessage}
             className="
-          bg-white
-          text-black
+          bg-violet-500
+          text-white
           px-8
           font-semibold
-          hover:bg-slate-200
+          hover:bg-violet-400
+          hover:shadow-[0_0_20px_rgba(139,92,246,0.25)]
           transition
           disabled:opacity-50
         "
@@ -482,6 +577,204 @@ Example format:
         </div>
 
       </div>
+      {isGeneratingReport && (
+  <motion.div
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    className="
+      fixed
+      inset-0
+      z-[999]
+      flex
+      items-center
+      justify-center
+
+      bg-black/80
+      backdrop-blur-md
+    "
+  >
+
+    <motion.div
+      initial={{
+        opacity: 0,
+        scale: 0.95
+      }}
+      animate={{
+        opacity: 1,
+        scale: 1
+      }}
+      className="
+        text-center
+        px-8
+        max-w-md
+      "
+    >
+
+      <div
+        className={`
+          w-16
+          h-16
+          mx-auto
+          mb-6
+
+          rounded-full
+
+          border-2
+          border-transparent
+
+          animate-spin
+
+          ${theme.border}
+        `}
+      />
+
+      <h2 className="text-3xl font-serif mb-4">
+        Generating Report
+      </h2>
+
+      <motion.p
+        key={loadingText}
+        initial={{
+          opacity: 0,
+          y: 10
+        }}
+        animate={{
+          opacity: 1,
+          y: 0
+        }}
+        className="
+          text-zinc-400
+        "
+      >
+        {loadingText}
+      </motion.p>
+
+    </motion.div>
+
+  </motion.div>
+)}
+
+      {showEndModal && (
+  <motion.div
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    className="
+      fixed
+      inset-0
+      z-50
+      flex
+      items-center
+      justify-center
+      bg-black/70
+      backdrop-blur-sm
+    "
+  >
+    <motion.div
+      initial={{ opacity: 0, scale: 0.95, y: 20 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.95 }}
+      className="
+        w-full
+        max-w-md
+        mx-4
+
+        bg-gradient-to-br
+        from-zinc-900
+        to-black
+
+        border
+        border-red-500/30
+
+        p-8
+
+        shadow-[0_0_40px_rgba(239,68,68,0.08)]
+      "
+    >
+
+      <div className="flex items-center gap-3 mb-5">
+
+        <div
+          className="
+            w-10
+            h-10
+            flex
+            items-center
+            justify-center
+
+            bg-red-500/10
+            border
+            border-red-500/20
+
+            text-red-400
+            text-xl
+          "
+        >
+          ⚠
+        </div>
+
+        <h2 className="text-2xl font-serif">
+          End Debate?
+        </h2>
+
+      </div>
+
+      <p className="text-zinc-400 leading-relaxed mb-8">
+        This debate will be finalized immediately.
+        A performance report will be generated and
+        you won't be able to continue the discussion.
+      </p>
+
+      <div className="flex gap-3">
+
+        <button
+          onClick={() => setShowEndModal(false)}
+          className="
+            flex-1
+
+            border
+            border-zinc-800
+
+            py-3
+
+            hover:border-zinc-700
+            hover:bg-zinc-900
+
+            transition-all
+            duration-300
+          "
+        >
+          Continue Debate
+        </button>
+
+        <button
+          onClick={async () => {
+  setShowEndModal(false);
+  await confirmEndDebate();
+}}
+          className="
+            flex-1
+
+            bg-red-500
+            text-white
+
+            py-3
+
+            hover:bg-red-400
+            hover:shadow-[0_0_20px_rgba(239,68,68,0.25)]
+
+            transition-all
+            duration-300
+          "
+        >
+          End Debate
+        </button>
+
+      </div>
+
+    </motion.div>
+  </motion.div>
+)}
 
     </motion.div>
   )
