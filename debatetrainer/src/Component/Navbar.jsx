@@ -43,7 +43,7 @@ function Navbar() {
           to="/"
           className="text-xl font-bold tracking-tight"
         >
-          AI Debate Arena
+          DebateArena
         </Link>
 
         <div className="hidden md:flex items-center gap-8">

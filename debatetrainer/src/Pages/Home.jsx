@@ -13,7 +13,7 @@ function Home() {
           <div className="max-w-6xl">
 
             <p className="text-slate-500 uppercase tracking-widest mb-6">
-              AI Debate Arena
+              DebateArena
             </p>
 
             <h1 className="text-4xl sm:text-5xl md:text-7xl leading-tight font-heading font-serif">
@@ -114,7 +114,7 @@ hover:shadow-[0_0_20px_rgba(139,92,246,0.08)]
             </h2>
 
             <p className="text-slate-400 text-lg font-heading leading-relaxed">
-              AI Debate Arena was built to do exactly that.
+              DebateArena was built to do exactly that.
               Whether you're discussing technology, philosophy,
               business, ethics, or everyday ideas, the AI will challenge
               your assumptions, attack weak arguments, and force you
@@ -381,7 +381,7 @@ hover:shadow-[0_0_30px_rgba(249,115,22,0.12)]
 
       <img
   src="/AIchat.png"
-  alt="AI Debate Arena Chat"
+  alt="DebateArena chat"
   className="
     relative
     rounded-2xl

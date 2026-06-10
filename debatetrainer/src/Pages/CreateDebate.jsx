@@ -139,7 +139,7 @@ const durations = [
             <div className="mb-10 text-center">
 
               <p className="text-slate-500 uppercase tracking-widest mb-4">
-                AI Debate Arena
+                DebateArena
               </p>
 
 <h1 className="text-4xl md:text-5xl font-serif tracking-tight mb-4">                Create A New Debate
