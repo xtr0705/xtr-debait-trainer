@@ -55,7 +55,7 @@ function Footer() {
           </a>
 
           <Link
-            to="/History/:user_id"
+            to="/history"
             className="
               text-zinc-400
               transition-colors

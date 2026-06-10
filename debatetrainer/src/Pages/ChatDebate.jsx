@@ -49,7 +49,18 @@ const [loadingText, setLoadingText] = useState(
       console.log(error);
       setIsGeneratingReport(false);
     } else {
-      await generateAIResult(messages);
+      const success = await generateAIResult(messages);
+
+      if (!success) {
+        setIsGeneratingReport(false);
+
+        alert(
+          "Failed to generate debate report. Please try again."
+        );
+
+        return;
+      }
+
       navigate(`/DebateReport/${debateId}`);
     }
   }
@@ -111,6 +122,9 @@ Example format:
         alert(
           "AI is currently busy. Please try again in a few moments."
         );    
+
+        
+        return false;
       }
 
       const cleaned = reportText
@@ -185,7 +199,8 @@ Example format:
         alert(
           "AI is currently busy. Please try again in a few moments."
         );
-        
+        setAiIsthinking(false);
+        return;
       }
       const { data, error } = await supabase.from('debate_messages').insert({
         sender: 'ai',

@@ -5,8 +5,20 @@ const model = genAI.getGenerativeModel({
   model:"gemini-2.5-flash"
 });
 
-export async function getAIResponse(prompt){
-  const result = await model.generateContent(prompt);
+export async function getAIResponse(prompt) {
+  try {
+    const result =
+      await model.generateContent(prompt);
 
-  return result.response.text();
+    return result.response.text();
+
+  } catch (error) {
+
+    console.error(
+      "Gemini Error:",
+      error
+    );
+
+    return null;
+  }
 }
