@@ -47,7 +47,6 @@ function Signup() {
             .insert({
               id: user.id,
               username,
-              email,
             });
 
         if (profileError) {
@@ -60,7 +59,7 @@ function Signup() {
       setLoading(false);
       navigate("/");
     } catch (err) {
-      setError("Something went wrong.");
+      setError("Something went wrong.",err);
       setLoading(false);
     }
   };
