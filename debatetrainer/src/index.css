@@ -1,4 +1,30 @@
 @import "tailwindcss";
+
 body {
   font-family: "Sora", sans-serif;
+}
+
+@keyframes goldGlow {
+  0% {
+    text-shadow:
+      0 0 5px rgba(255, 215, 0, 0.4),
+      0 0 10px rgba(255, 215, 0, 0.3);
+  }
+
+  50% {
+    text-shadow:
+      0 0 10px rgba(255, 215, 0, 0.9),
+      0 0 20px rgba(255, 215, 0, 0.7),
+      0 0 30px rgba(255, 215, 0, 0.5);
+  }
+
+  100% {
+    text-shadow:
+      0 0 5px rgba(255, 215, 0, 0.4),
+      0 0 10px rgba(255, 215, 0, 0.3);
+  }
+}
+
+.animate-glow {
+  animation: goldGlow 3s ease-in-out infinite;
 }
