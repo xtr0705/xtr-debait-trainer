@@ -11,7 +11,6 @@ function DebateHistory() {
     const fetchHistory = async () => {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
-
       setLoading(true);
       const { data, error } = await supabase
         .from('debate_reports')
