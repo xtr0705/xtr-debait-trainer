@@ -75,6 +75,19 @@ function Navbar() {
           </a>
 
           <Link
+            to="/leaderboard"
+            className="
+              text-zinc-400
+              transition-all
+              duration-300
+              hover:text-violet-300
+              hover:-translate-y-0.5
+            "
+          >
+            Leaderboard
+          </Link>
+
+          <Link
             to="/history"
             className="
               text-zinc-400
@@ -228,6 +241,19 @@ function Navbar() {
               >
                 Opponents
               </a>
+
+              <Link
+            to="/leaderboard"
+            className="
+              text-zinc-400
+              transition-all
+              duration-300
+              hover:text-violet-300
+              hover:-translate-y-0.5
+            "
+          >
+            Leaderboard
+          </Link>
 
               <Link
                 to="/history"

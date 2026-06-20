@@ -3,6 +3,7 @@ import supabase from "../lib/supabase";
 
 function Leaderboard() {
   const [leaderboard,setLeaderboard] = useState([]);
+  const [currentUserData, setCurrentUserData] = useState([]);
   const [loading,setLoading] = useState(true);
   
   useEffect(()=>{
@@ -59,6 +60,31 @@ function Leaderboard() {
       setLeaderboard(sortedData);
       setLoading(false)
     }
+
+    const currentUser = async()=>{
+      const {data:{user}} = await supabase.auth.getUser();
+      
+    } 
+    currentUser();
+    // const userData = async ()=>{
+    //   const {data:reports,error} = await supabase
+    //   .from('debate_reports')
+    //   .select(`
+    //     user_id,
+    //     persuasion_score,
+    //     logic_score,
+    //     overall_score,
+    //     profiles(
+    //       username
+    //     )
+    //   `);
+    //   console.log(reports);
+    //   if (error) {
+    //     console.log(error);
+    //     return;
+    //   }
+    // }
+
     Data()
   },[])
 
@@ -92,6 +118,76 @@ function Leaderboard() {
     persuasion, and consistency.
   </p>
 
+</div>
+<div
+  className="
+    max-w-5xl
+    mx-auto
+    mb-10
+    rounded-2xl
+    border
+    border-violet-500/20
+    bg-zinc-950
+    p-6
+  "
+>
+  <div className="flex items-center justify-between flex-wrap gap-4">
+
+    {/* <div>
+      <p className="text-slate-400 text-sm">
+        Your Ranking
+      </p>
+
+      <h2 className="text-3xl font-bold text-violet-400">
+        #{currentUserRank}
+      </h2>
+    </div>
+
+    <div className="flex gap-8 flex-wrap">
+
+      <div>
+        <p className="text-slate-500 text-sm">
+          Overall
+        </p>
+
+        <p className="text-xl font-bold text-violet-400">
+          {currentUserData.avgOverall}
+        </p>
+      </div>
+
+      <div>
+        <p className="text-slate-500 text-sm">
+          Logic
+        </p>
+
+        <p className="text-lg text-slate-300">
+          {currentUserData.avgLogic}
+        </p>
+      </div>
+
+      <div>
+        <p className="text-slate-500 text-sm">
+          Persuasion
+        </p>
+
+        <p className="text-lg text-slate-300">
+          {currentUserData.avgPersuasion}
+        </p>
+      </div>
+
+      <div>
+        <p className="text-slate-500 text-sm">
+          Debates
+        </p>
+
+        <p className="text-lg text-slate-300">
+          {currentUserData.debateCount}
+        </p>
+      </div>
+
+    </div> */}
+
+  </div>
 </div>
 
       <div

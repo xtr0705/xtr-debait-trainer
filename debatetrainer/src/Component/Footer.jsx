@@ -55,6 +55,18 @@ function Footer() {
           </a>
 
           <Link
+            to="/leaderboard"
+            className="
+              text-zinc-400
+              transition-colors
+              duration-300
+              hover:text-violet-300
+            "
+          >
+            Leaderboard
+          </Link>
+
+          <Link
             to="/history"
             className="
               text-zinc-400
