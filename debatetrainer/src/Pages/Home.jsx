@@ -1,8 +1,51 @@
 import { Link } from "react-router-dom";
 import Navbar from "../Component/Navbar";
 import Footer from "../Component/Footer";
+import { useEffect } from "react";
+import supabase from "../lib/supabase";
+
 
 function Home() {
+
+  useEffect(()=>{
+    const profileSearch = async ()=>{
+      const {data:{user}} = await supabase.auth.getUser();
+      if(user){
+        const {data:profile,error} = await supabase
+          .from('profiles')
+          .select('id')
+          .eq('id',user.id)
+          console.log(profile);
+          
+          if (error) {
+            console.log(error);
+            return;
+          }
+        if (!profile) {
+          await supabase
+            .from('profiles')
+            .insert({
+              id:user.id,
+              username:
+              user.user_metadata.full_name||
+              user.user_metadata.name||
+              user.email.split('@')[0]
+            });
+        }
+      }
+    }
+    const {data:listener} = supabase.auth.onAuthStateChange(
+      (event,session) =>{
+        console.log(event);
+        console.log(session?.user);
+      }
+    );
+    profileSearch();
+
+    return ()=>{
+      listener.subscription.unsubscribe();
+    }
+  },[])
   return (
     <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(124,58,237,0.12),transparent_50%)]">
       <div className="relative min-h-screen bg-[#09090B] text-white overflow-hidden">

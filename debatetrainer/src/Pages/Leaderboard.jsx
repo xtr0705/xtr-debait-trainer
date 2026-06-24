@@ -31,7 +31,7 @@ function Leaderboard() {
         const userId = report.user_id;
         if (!users[userId]) {
           users[userId] = {
-            username: report.profiles?.usernames ?? "Unknown",
+            username: report.profiles?.username ?? "Unknown",
             overallSum: 0,
             logicSum: 0,
             persuasionSum: 0,
@@ -149,76 +149,6 @@ function Leaderboard() {
             </p>
 
           </div>
-          <div
-            className="
-    max-w-5xl
-    mx-auto
-    mb-10
-    rounded-2xl
-    border
-    border-violet-500/20
-    bg-zinc-950
-    p-6
-  "
-          >
-            <div className="flex items-center justify-between flex-wrap gap-4">
-
-              <div>
-      <p className="text-slate-400 text-sm">
-        Your Ranking
-      </p>
-
-      <h2 className="text-3xl font-bold text-violet-400">
-        #8
-      </h2>
-    </div>
-
-    <div className="flex gap-8 flex-wrap">
-
-      <div>
-        <p className="text-slate-500 text-sm">
-          Overall
-        </p>
-
-        <p className="text-xl font-bold text-violet-400">
-          {userData.avgOverall}
-        </p>
-      </div>
-
-      <div>
-        <p className="text-slate-500 text-sm">
-          Logic
-        </p>
-
-        <p className="text-lg text-slate-300">
-          {userData.avgLogic}
-        </p>
-      </div>
-
-      <div>
-        <p className="text-slate-500 text-sm">
-          Persuasion
-        </p>
-
-        <p className="text-lg text-slate-300">
-          {userData.avgPersuasion}
-        </p>
-      </div>
-
-      <div>
-        <p className="text-slate-500 text-sm">
-          Debates
-        </p>
-
-        <p className="text-lg text-slate-300">
-          {userData.debateCount}
-        </p>
-      </div>
-
-    </div> 
-
-            </div>
-          </div>
 
           <div
             className="
@@ -318,6 +248,76 @@ function Leaderboard() {
                 })}
               </tbody>
             </table>
+          </div>
+          <div
+            className="
+    max-w-5xl
+    mx-auto
+    mb-10
+    mt-10
+    border
+    border-violet-500/20
+    bg-zinc-950
+    p-6
+  "
+          >
+            <div className="flex items-center justify-between flex-wrap gap-4">
+
+              <div>
+      <p className="text-slate-400 text-sm">
+        Your Ranking
+      </p>
+
+      <h2 className="text-3xl font-bold text-violet-400">
+        your rank
+      </h2>
+    </div>
+
+    <div className="flex gap-8 flex-wrap">
+
+      <div>
+        <p className="text-slate-500 text-sm">
+          Overall
+        </p>
+
+        <p className="text-xl font-bold text-violet-400">
+          {userData.avgOverall}
+        </p>
+      </div>
+
+      <div>
+        <p className="text-slate-500 text-sm">
+          Logic
+        </p>
+
+        <p className="text-lg text-slate-300">
+          {userData.avgLogic}
+        </p>
+      </div>
+
+      <div>
+        <p className="text-slate-500 text-sm">
+          Persuasion
+        </p>
+
+        <p className="text-lg text-slate-300">
+          {userData.avgPersuasion}
+        </p>
+      </div>
+
+      <div>
+        <p className="text-slate-500 text-sm">
+          Debates
+        </p>
+
+        <p className="text-lg text-slate-300">
+          {userData.debateCount}
+        </p>
+      </div>
+
+    </div> 
+
+            </div>
           </div>
 
           {leaderboard.length === 0 && (
