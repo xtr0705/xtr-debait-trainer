@@ -3,17 +3,15 @@ import supabase from "../lib/supabase";
 
 function Leaderboard() {
   const [leaderboard, setLeaderboard] = useState([]);
-  const [currentUserData, setCurrentUserData] = useState([]);
   const [userData, setUserData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [myRank, setMyRank] = useState('');
 
   useEffect(() => {
 
     const Data = async () => {
-      const { data: { user }} = await supabase.auth.getUser();
+      const { data: { user } } = await supabase.auth.getUser();
       const userId = user.id
-      console.log("Current User ID:", userId)
+      if (!userId) return;
 
       const { data: reports, error } = await supabase
         .from('debate_reports')
@@ -26,7 +24,6 @@ function Leaderboard() {
           username
         )
       `);
-      console.log(reports);
       if (error) {
         console.log(error);
         return;
@@ -35,7 +32,6 @@ function Leaderboard() {
       const users = {};
       reports.forEach(report => {
         const userId = report.user_id;
-        console.log(userId);
 
         if (!users[userId]) {
           users[userId] = {
@@ -68,36 +64,20 @@ function Leaderboard() {
         (a, b) => b.avgOverall - a.avgOverall
       );
 
-      async function Rank() {
-        const myRank = sortedData.map((ids, index) => {
-          console.log(index);
-          if (userId == ids.id) {
-            setMyRank(index);
-            console.log(myRank);
-            
-          } else {
-            console.log('no rank found');
-          }
-        })
-      }
-
-
-      Rank();
       console.log(sortedData);
       setLeaderboard(sortedData);
-      setLoading(false)
+      
     }
 
     const fetchCurrentUserData = async () => {
       const { data: { user } } = await supabase.auth.getUser();
-      const id = user.id;
+      const id = user?.id;
 
-      const Data = async () => {
-        if (user?.id) {
+      if (!id) return;
 
-          const { data: reports, error } = await supabase
-            .from('debate_reports')
-            .select(`
+      const { data: reports, error } = await supabase
+        .from('debate_reports')
+        .select(`
             user_id,
             persuasion_score,
             logic_score,
@@ -106,24 +86,35 @@ function Leaderboard() {
               username
               )
               `)
-            .eq('user_id', id)
-          console.log(reports);
-          if (error) {
-            console.log(error);
-            return;
-          }
-          setCurrentUserData(reports);
-          console.log(currentUserData);
-        }
+        .eq('user_id', id)
+      if (error) {
+        console.log(error);
+        return;
       }
+      console.log(reports);
+
       const userFinalData = {};
-      currentUserData.forEach(report => {
+      reports.forEach(report => {
         const userId = report.user_id;
+        console.log(report);
+        
+        if (!userFinalData[userId]) {
+          userFinalData[userId] = {
+            username: report.profiles?.username || 'Unknown',
+            overallSum: 0,
+            logicSum: 0,
+            persuasionSum: 0,
+            debateCount: 0
+          };
+        }
+
         userFinalData[userId].overallSum += report.overall_score;
         userFinalData[userId].logicSum += report.logic_score;
         userFinalData[userId].persuasionSum += report.persuasion_score;
         userFinalData[userId].debateCount += 1;
       })
+      console.log(userFinalData);
+      
       const sortedData = Object.values(userFinalData)
         .filter(user => user.debateCount >= 3)
         .map((user) => ({
@@ -136,14 +127,22 @@ function Leaderboard() {
       sortedData.sort(
         (a, b) => b.avgOverall - a.avgOverall
       );
-      console.log(userFinalData);
-      setUserData(userFinalData);
-      Data();
-    }
 
+
+      console.log(sortedData);
+      setUserData(sortedData);
+      setLoading(false);
+    }
+    
     fetchCurrentUserData();
     Data()
+    
   }, [])
+
+  console.log(userData);
+  console.log(leaderboard);
+  const userFinalData = userData[0];
+  
 
   if (loading) {
     return (
@@ -331,7 +330,7 @@ function Leaderboard() {
                 </p>
 
                 <h2 className="text-3xl font-bold text-violet-400">
-                  {myRank}
+                  {userData ? userData.rank : 'N/A'}
                 </h2>
               </div>
 
@@ -342,8 +341,8 @@ function Leaderboard() {
                     Overall
                   </p>
 
-                  <p className="text-xl font-bold text-violet-400">
-                    {userData?userData.avgOverall:'N/A'}
+                  <p className="text-md font-bold text-violet-400">
+                    {userData ? userFinalData.avgOverall : 'N/A'}
                   </p>
                 </div>
 
@@ -352,8 +351,8 @@ function Leaderboard() {
                     Logic
                   </p>
 
-                  <p className="text-lg text-slate-300">
-                    {userData?userData.avgLogic:'N/A'}
+                  <p className="text-md text-slate-300">
+                    {userData ? userFinalData.avgLogic : 'N/A'}
                   </p>
                 </div>
 
@@ -362,8 +361,8 @@ function Leaderboard() {
                     Persuasion
                   </p>
 
-                  <p className="text-lg text-slate-300">
-                    {userData?userData.avgPersuasion:'N/A'}
+                  <p className="text-md text-slate-300">
+                    {userData ? userFinalData.avgPersuasion : 'N/A'}
                   </p>
                 </div>
 
@@ -372,8 +371,8 @@ function Leaderboard() {
                     Debates
                   </p>
 
-                  <p className="text-lg text-slate-300">
-                    {userData?userData.debateCount:'N/A'}
+                  <p className="text-md text-slate-300">
+                    {!userData ? 'N/A' : userFinalData.debateCount}
                   </p>
                 </div>
 
