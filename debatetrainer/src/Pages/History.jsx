@@ -33,10 +33,17 @@ function DebateHistory() {
 
   if (loading) {
   return (
-    <div className="text-center">
+    <div className="
+min-h-screen
+bg-[#09090B]
+text-white
+flex
+items-center
+justify-center
+">
+        <div className="text-center">
 
-  <div
-    className="
+          <div className="
       w-12
       h-12
       border-4
@@ -46,14 +53,14 @@ function DebateHistory() {
       animate-spin
       mx-auto
       mb-4
-    "
-  />
+    "/>
 
-  <p className="text-zinc-400">
-    Loading History...
-  </p>
+          <p className="text-zinc-400">
+            Loading History...
+          </p>
 
-</div>
+        </div>
+      </div>
   );
 }
 
@@ -137,11 +144,10 @@ function DebateHistory() {
                 className="
               
               border
-              bg-gradient-to-br
+              bg-linear-to-br
 from-zinc-900
 to-black
 
-border
 border-zinc-800
 
 transition-all
@@ -151,11 +157,11 @@ hover:border-violet-500/30
 hover:-translate-y-1
 
 hover:shadow-[0_0_30px_rgba(139,92,246,0.08)]
-              rounded-2xl
+              rounded
               p-6
-              hover:border-slate-700
-              transition
-              cursor-pointer
+             
+              
+              
               "
               >
 
@@ -180,7 +186,7 @@ sm:items-start">
                     className={`
                     px-3
                     py-1
-                    rounded-full
+                    rounded
                     uppercase tracking-wide
                 text-sm
                 font-medium
@@ -236,6 +242,7 @@ text-white
 
 px-5
 py-3
+cursor-pointer
 
 font-medium
 

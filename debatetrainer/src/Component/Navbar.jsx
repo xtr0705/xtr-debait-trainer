@@ -187,6 +187,7 @@ function Navbar() {
           className="
             md:hidden
             text-2xl
+            cursor-pointer
             text-white
           "
         >
@@ -224,7 +225,9 @@ function Navbar() {
                 className="
                   text-zinc-300
                   hover:text-violet-300
-                  transition
+                  hover:-translate-y-0.5
+                  transition-all
+                  duration-300
                 "
               >
                 How It Works
@@ -236,7 +239,9 @@ function Navbar() {
                 className="
                   text-zinc-300
                   hover:text-violet-300
-                  transition
+                  hover:-translate-y-0.5
+                  transition-all
+                  duration-300
                 "
               >
                 Opponents
@@ -259,9 +264,11 @@ function Navbar() {
                 to="/history"
                 onClick={() => setMobileOpen(false)}
                 className="
-                  text-zinc-300
+                  text-zinc-400
                   hover:text-violet-300
-                  transition
+                  hover:-translate-y-0.5
+                  transition-all
+                  duration-300
                 "
               >
                 Debate Results
