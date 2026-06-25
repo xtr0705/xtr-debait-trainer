@@ -64,8 +64,6 @@ function Leaderboard() {
       sortedData.sort(
         (a, b) => b.avgOverall - a.avgOverall
       );
-
-      console.log(sortedData);
       setLeaderboard(sortedData);
 
     }
@@ -92,12 +90,10 @@ function Leaderboard() {
         console.log(error);
         return;
       }
-      console.log(reports);
 
       const userFinalData = {};
       reports.forEach(report => {
         const userId = report.user_id;
-        console.log(report);
 
         if (!userFinalData[userId]) {
           userFinalData[userId] = {
@@ -114,7 +110,6 @@ function Leaderboard() {
         userFinalData[userId].persuasionSum += report.persuasion_score;
         userFinalData[userId].debateCount += 1;
       })
-      console.log(userFinalData);
 
       const sortedData = Object.values(userFinalData)
         .filter(user => user.debateCount >= 3)
@@ -129,14 +124,8 @@ function Leaderboard() {
         (a, b) => b.avgOverall - a.avgOverall
       );
 
-
-      console.log(sortedData);
       setUserData(sortedData);
       setLoading(false);
-
-
-
-
     }
 
     Data()
@@ -149,7 +138,6 @@ function Leaderboard() {
     const setUserRank = async () => {
       const { data: { user } } = await supabase.auth.getUser();
       const id = user?.id;
-      console.log(id);
       leaderboard.forEach((user, index) => {
         if (id === user.id) {
           setMyRank(index + 1);
