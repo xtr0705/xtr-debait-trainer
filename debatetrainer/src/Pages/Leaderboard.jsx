@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import supabase from "../lib/supabase";
-import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Leaderboard() {

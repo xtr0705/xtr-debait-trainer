@@ -9,6 +9,7 @@ import Home from "./Pages/Home";
 import ProtectedRoute from "./Component/ProtectedRoute";
 import DebateHistory from "./Pages/History";
 import Leaderboard from "./Pages/Leaderboard";
+import Profile from "./Pages/Profile";
 
 function App() {
   return (
@@ -24,6 +25,15 @@ function App() {
           element={
             <ProtectedRoute>
               <CreateDebate />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/profile/"
+          element={
+            <ProtectedRoute>
+              <Profile />
             </ProtectedRoute>
           }
         />
