@@ -1,15 +1,32 @@
 
 import { useEffect, useState } from "react";
 import supabase from "../lib/supabase";
+import { useNavigate } from "react-router-dom";
 
 function Profile() {
-
+  const navigate = useNavigate();
+  const [pfp,setPfp]=useState('https://picsum.photos');
   const [profileFinalInfo, setProfileFinalInfo] = useState({
     highest_debate: '',
     lowest_debate: '',
     highest_overall: 0,
-    lowest_overall: 0
+    lowest_overall: 0,
+    pfp: 'img',
+    username: 'abcd',
+    doc: 'april1'
   });
+
+  const handleImageChange = (e)=>{
+    const files = e.target.files;
+    if (files && files.length>0) {
+      console.log(files);
+      
+      const localUrl = URL.createObjectURL(files[0]);
+      setPfp(localUrl);
+      console.log(localUrl);
+      
+    }
+  }
 
   useEffect(() => {
     const userInfo = async () => {
@@ -38,6 +55,7 @@ function Profile() {
         let topDebate;
         let leastDebate;
         let least = 0;
+
         for (let i = 0; i < rawReportData.length; i++) {
           if (overall < rawReportData[i].overall_score) {
             overall = rawReportData[i].overall_score;
@@ -50,9 +68,7 @@ function Profile() {
             leastDebate = rawReportData[i].topic;
           }
         }
-        console.log(least);
-        console.log(leastDebate);
-        console.log(topDebate);
+
 
         const modelObject = {
           highest_debate: topDebate,
@@ -97,9 +113,34 @@ function Profile() {
 
 
             <div className="border-r border-white/10 flex items-center justify-center p-8">
-              <div className="w-36 h-36 border border-white/20 bg-[#181818] flex items-center justify-center text-white/40 text-sm hover:scale-105 transition">
-                PFP
-              </div>
+
+           
+                 <div className="flex flex-col items-center justify-center p-6 bg-slate-50 rounded-xl max-w-xs mx-auto shadow-sm">
+      {/* Clickable Image Container */}
+      <label htmlFor="pfp-file-input" className="group relative cursor-pointer overflow-hidden rounded-full w-36 h-36 border-4 border-white shadow-md ring-2 ring-indigo-500/20 transition-all hover:ring-indigo-500">
+        <img 
+          src={pfp} 
+          alt="Profile Preview" 
+          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" 
+        />
+        {/* Dark Hover Overlay */}
+        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-200">
+          <span className="text-white text-xs font-medium tracking-wide">Change Photo</span>
+        </div>
+      </label>
+
+      {/* Hidden File Input */}
+      <input 
+        type="file" 
+        id="pfp-file-input" 
+        accept="image/*" 
+        className="hidden" 
+        onChange={handleImageChange} 
+      />
+      
+      <p className="mt-3 text-xs text-slate-500 font-medium">Allowed formats: JPG, PNG, WEBP</p>
+    </div>
+              
             </div>
 
 
@@ -154,7 +195,7 @@ function Profile() {
                 Highest
               </p>
 
-              <h4 className="mt-8 text-2xl font-semibold leading-relaxed">
+              <h4 className="mt-8 uppercase text-2xl font-semibold leading-relaxed">
                 {profileFinalInfo.highest_debate}
               </h4>
 
