@@ -65,33 +65,42 @@ function Profile() {
 
 
         let overall = 0;
-        let topDebate;
-        let leastDebate;
         let least = 0;
+        let topDebate;
+        let topDebateId;
+        let leastDebate;
+        let leastDebateId;
 
         for (let i = 0; i < rawReportData.length; i++) {
           if (overall < rawReportData[i].overall_score) {
             overall = rawReportData[i].overall_score;
             topDebate = rawReportData[i].topic;
+            topDebateId = rawReportData[i].debate_id;
           }
         }
         for (let i = 0; i < rawReportData.length; i++) {
           if (overall > rawReportData[i].overall_score) {
             least = rawReportData[i].overall_score;
             leastDebate = rawReportData[i].topic;
+            leastDebateId = rawReportData[i].debate_id;
           }
         }
+
+        console.log(rawReportData);
+
 
 
         const modelObject = {
           highest_debate: topDebate,
+          highest_debateId: topDebateId,
           lowest_debate: leastDebate,
+          lowest_debateId: leastDebateId,
           highest_overall: overall,
           lowest_overall: least,
           pfp: pfp,
           username: username,
           doc: doc,
-          debate_No:rawReportData.length
+          debate_No: rawReportData.length
         };
         setProfileFinalInfo(modelObject)
         console.log(modelObject);
@@ -106,6 +115,7 @@ function Profile() {
         console.log(error);
         return;
       }
+
     }
     userInfo();
   }, [])
@@ -114,27 +124,47 @@ function Profile() {
   return (
 
 
-    <main className="min-h-screen bg-[#080808] text-white px-8 py-10">
-      <div className="max-w-6xl mx-auto">
+    <main className="min-h-screen bg-[#09090B] text-white relative overflow-hidden">
 
-        <div className="mb-12">
-          <h1 className="text-5xl font-light tracking-widest">
-            PROFILE
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(124,58,237,0.12),transparent_50%)]" />
+
+      <div className="relative max-w-6xl mx-auto px-6 py-12">
+
+        <div className="mb-14 text-center">
+
+          <p className="uppercase tracking-[0.35em] text-slate-500 mb-4">
+            DebateArena
+          </p>
+
+          <h1 className="text-5xl md:text-6xl font-serif">
+            Your Profile
           </h1>
-          <div className="mt-3 h-0.5 w-32 bg-copper-light"></div>
+
+          <p className="mt-5 text-zinc-400 max-w-2xl mx-auto leading-relaxed">
+            Track your debate journey, revisit your strongest arguments,
+            and measure your growth over time.
+          </p>
+
         </div>
 
 
-        <section className="border border-white/10 bg-[#111111]">
+        <section className="bg-gradient-to-br
+from-zinc-900
+to-black
+
+border
+border-zinc-800
+
+shadow-[0_0_40px_rgba(139,92,246,0.05)]">
           <div className="grid md:grid-cols-[180px_1fr]">
 
 
             <div className="border-r border-white/10 flex items-center justify-center p-8">
 
 
-              <div className="flex flex-col items-center justify-center p-6 bg-slate-50 rounded-xl max-w-xs mx-auto shadow-sm">
-                {/* Clickable Image Container */}
-                <label htmlFor="pfp-file-input" className="group relative cursor-pointer overflow-hidden rounded-full w-36 h-36 border-4 border-white shadow-md ring-2 ring-indigo-500/20 transition-all hover:ring-indigo-500">
+              <div className="flex flex-col items-center justify-center p-6  max-w-xs mx-auto shadow-sm">
+                <label htmlFor="pfp-file-input" className="group relative cursor-pointer overflow-hidden border
+border-violet-500/30 w-40 h-40 shadow-md ring-2 ring-indigo-500/20 transition-all hover:ring-indigo-500">
                   <img
                     src={pfp}
                     alt="Profile Preview"
@@ -162,28 +192,39 @@ function Profile() {
 
 
             <div className="p-8 flex flex-col justify-center">
-              <h2 className="text-4xl font-semibold">
+             
+              <h2 className="text-5xl font-serif">
                 {username}
               </h2>
 
 
-              <div className="mt-8 flex gap-10 text-sm uppercase tracking-wider">
+              <div className="grid md:grid-cols-2 gap-6 mt-10">
 
-                <div>
-                  <p className="text-white/40">Debates</p>
-                  <p className="text-3xl font-semibold mt-2">
-                    {profileFinalInfo.debate_No}
-                  </p>
-                </div>
+  <div className="border border-zinc-800 bg-black/40 p-5">
 
-                <div>
-                  <p className="text-white/40">Account created on</p>
-                  <p className="text-3xl font-semibold mt-2">
-                    {doc}
-                  </p>
-                </div>
+    <p className="uppercase tracking-[0.25em] text-xs text-zinc-500">
+      Debates
+    </p>
 
-              </div>
+    <h3 className="text-4xl font-bold mt-4 text-violet-400">
+      {profileFinalInfo.debate_No}
+    </h3>
+
+  </div>
+
+  <div className="border border-zinc-800 bg-black/40 p-5">
+
+    <p className="uppercase tracking-[0.25em] text-xs text-zinc-500">
+      Joined
+    </p>
+
+    <h3 className="text-2xl font-semibold mt-5">
+      {doc}
+    </h3>
+
+  </div>
+
+</div>
             </div>
 
           </div>
@@ -193,17 +234,28 @@ function Profile() {
         <section className="mt-14">
 
           <div className="mb-6">
-            <h3 className="text-3xl font-light tracking-widest">
+            <h3 className="text-3xl font-serif text-4xl">
               PERFORMANCE
             </h3>
 
-            <div className="mt-2 h-0.5 w-24 bg-copper-light"></div>
+            <div className="mt-2 h-0.5 w-24 bg-violet-500"></div>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
 
 
-            <div className="border border-white/10 bg-[#111111] p-8 hover:border-copper-light transition duration-300">
+            <div className="bg-gradient-to-br
+from-zinc-900
+to-black
+
+border
+border-zinc-800
+
+p-8 
+hover:border-violet-500/40
+
+transition-all
+duration-300">
 
               <p className="text-xs tracking-[0.3em] text-white/40 uppercase">
                 Highest
@@ -219,20 +271,32 @@ function Profile() {
                   Score
                 </p>
 
-                <h2 className="text-6xl font-bold mt-2 text-copper-light">
+                <h2 className="text-6xl font-bold mt-2 text-violet-400">
                   {profileFinalInfo.highest_overall}
                 </h2>
 
               </div>
 
-              <button className="mt-10 border border-white/20 px-5 py-3 uppercase tracking-wider text-sm hover:border-copper-light hover:text-copper-light transition">
+              <button className="mt-10 bg-violet-500
+text-white px-5 shadow-sm py-3 uppercase tracking-wider text-sm hover:border-purple-800 hover:shadow-purple-600 transition"
+                onClick={
+                  () => navigate(`/DebateReport/${profileFinalInfo.highest_debateId}`)
+                }
+              >
                 View Report →
               </button>
 
             </div>
 
 
-            <div className="border border-white/10 bg-[#111111] p-8 hover:border-copper-light transition duration-300">
+            <div className="bg-gradient-to-br
+from-zinc-900
+to-black
+
+border
+border-zinc-800
+
+shadow-[0_0_40px_rgba(139,92,246,0.05)] p-8 hover:border-copper-light transition duration-300">
 
               <p className="text-xs tracking-[0.3em] text-white/40 uppercase">
                 Lowest Score
@@ -248,13 +312,18 @@ function Profile() {
                   Score
                 </p>
 
-                <h2 className="text-6xl font-bold mt-2 text-copper-light">
+                <h2 className="text-6xl font-bold mt-2 text-violet-400">
                   {profileFinalInfo.lowest_overall}
                 </h2>
 
               </div>
 
-              <button className="mt-10 border border-white/20 px-5 py-3 uppercase tracking-wider text-sm hover:border-copper-light hover:text-copper-light transition">
+              <button className="mt-10 bg-violet-500
+text-white px-5 py-3 uppercase tracking-wider text-sm hover:border-copper-light hover:text-violet-400 transition"
+                onClick={
+                  () => navigate(`/DebateReport/${profileFinalInfo.lowest_debateId}`)
+                }
+              >
                 View Report →
               </button>
 
