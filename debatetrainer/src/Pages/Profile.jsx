@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 function Profile() {
   const navigate = useNavigate();
   const [pfp,setPfp]=useState('https://picsum.photos');
+  const [username,setUsername]=useState('');
   const [profileFinalInfo, setProfileFinalInfo] = useState({
     highest_debate: '',
     lowest_debate: '',
@@ -13,7 +14,6 @@ function Profile() {
     lowest_overall: 0,
     pfp: 'img',
     username: 'abcd',
-    doc: 'april1'
   });
 
   const handleImageChange = (e)=>{
@@ -39,6 +39,7 @@ function Profile() {
           .select()
           .eq('id', user.id)
         console.log(profile);
+        setUsername(profile[0].username);
 
         const rawReportData = []
         const { data: reports } = await supabase
@@ -74,7 +75,9 @@ function Profile() {
           highest_debate: topDebate,
           lowest_debate: leastDebate,
           highest_overall: overall,
-          lowest_overall: least
+          lowest_overall: least,
+          pfp:pfp,
+          username:username
         };
         setProfileFinalInfo(modelObject)
         console.log(modelObject);
@@ -138,7 +141,7 @@ function Profile() {
         onChange={handleImageChange} 
       />
       
-      <p className="mt-3 text-xs text-slate-500 font-medium">Allowed formats: JPG, PNG, WEBP</p>
+      
     </div>
               
             </div>
@@ -146,7 +149,7 @@ function Profile() {
 
             <div className="p-8 flex flex-col justify-center">
               <h2 className="text-4xl font-semibold">
-                Salem Ali
+                {username}
               </h2>
 
               <p className="mt-2 text-white/60">
