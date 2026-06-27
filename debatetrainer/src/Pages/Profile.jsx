@@ -252,16 +252,18 @@ border
 border-zinc-800
 
 p-8 
+flex
+flex-col
 hover:border-violet-500/40
 
 transition-all
 duration-300">
 
               <p className="text-xs tracking-[0.3em] text-white/40 uppercase">
-                Highest
+               Best Performance
               </p>
 
-              <h4 className="mt-8 uppercase text-2xl font-semibold leading-relaxed">
+              <h4 className="mt-8 uppercase text-2xl font-semibold leading-relaxed h-24">
                 {profileFinalInfo.highest_debate}
               </h4>
 
@@ -277,8 +279,10 @@ duration-300">
 
               </div>
 
-              <button className="mt-10 bg-violet-500
-text-white px-5 shadow-sm py-3 uppercase tracking-wider text-sm hover:border-purple-800 hover:shadow-purple-600 transition"
+              <button className="mt-8 bg-violet-500
+text-white px-5 shadow-sm py-3 uppercase tracking-wider text-sm hover:bg-violet-400
+hover:shadow-[0_0_20px_rgba(139,92,246,0.25)]
+transition"
                 onClick={
                   () => navigate(`/DebateReport/${profileFinalInfo.highest_debateId}`)
                 }
@@ -293,16 +297,19 @@ text-white px-5 shadow-sm py-3 uppercase tracking-wider text-sm hover:border-pur
 from-zinc-900
 to-black
 
+flex
+flex-col
 border
 border-zinc-800
+hover:border-violet-500/40
 
 shadow-[0_0_40px_rgba(139,92,246,0.05)] p-8 hover:border-copper-light transition duration-300">
 
               <p className="text-xs tracking-[0.3em] text-white/40 uppercase">
-                Lowest Score
+                Needs Improvement
               </p>
 
-              <h4 className="mt-8 uppercase text-2xl font-semibold leading-relaxed">
+              <h4 className="mt-8 uppercase text-2xl font-semibold leading-relaxed h-24">
                 {profileFinalInfo.lowest_debate}
               </h4>
 
@@ -318,8 +325,10 @@ shadow-[0_0_40px_rgba(139,92,246,0.05)] p-8 hover:border-copper-light transition
 
               </div>
 
-              <button className="mt-10 bg-violet-500
-text-white px-5 py-3 uppercase tracking-wider text-sm hover:border-copper-light hover:text-violet-400 transition"
+              <button className="mt-8 bg-violet-500
+text-white px-5 py-3 uppercase tracking-wider text-sm hover:bg-violet-400
+hover:shadow-[0_0_20px_rgba(139,92,246,0.25)]
+transition"
                 onClick={
                   () => navigate(`/DebateReport/${profileFinalInfo.lowest_debateId}`)
                 }
