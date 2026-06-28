@@ -4,56 +4,56 @@ import Footer from "../Component/Footer";
 import { useEffect } from "react";
 import supabase from "../lib/supabase";
 import CursorGlow from "../Component/CursorGlow";
-import CursorParticles from "../Component/CursorParticles";
+import TiltCard from "../Component/TiltCard";
 
 
 function Home() {
 
-  useEffect(()=>{
-    const profileSearch = async ()=>{
-      const {data:{user}} = await supabase.auth.getUser();
-      if(user){
-        const {data:profile,error} = await supabase
+  useEffect(() => {
+    const profileSearch = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        const { data: profile, error } = await supabase
           .from('profiles')
           .select('id')
-          .eq('id',user.id)
-          console.log(profile);
-          
-          if (error) {
-            console.log(error);
-            return;
-          }
+          .eq('id', user.id)
+        console.log(profile);
+
+        if (error) {
+          console.log(error);
+          return;
+        }
         if (!profile) {
           await supabase
             .from('profiles')
             .insert({
-              id:user.id,
+              id: user.id,
               username:
-              user.user_metadata.full_name||
-              user.user_metadata.name||
-              user.email.split('@')[0]
+                user.user_metadata.full_name ||
+                user.user_metadata.name ||
+                user.email.split('@')[0]
             });
         }
       }
     }
-    const {data:listener} = supabase.auth.onAuthStateChange(
-      (event,session) =>{
+    const { data: listener } = supabase.auth.onAuthStateChange(
+      (event, session) => {
         console.log(event);
         console.log(session?.user);
       }
     );
     profileSearch();
 
-    return ()=>{
+    return () => {
       listener.subscription.unsubscribe();
     }
-  },[])
+  }, [])
   return (
     <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(124,58,237,0.12),transparent_50%)]">
       <div className="relative min-h-screen bg-[#09090B] text-white overflow-hidden">
-        
+
         <CursorGlow />
-        <CursorParticles />
+        
         <Navbar />
         <section className="max-w-6xl mx-auto px-6 pt-32 pb-24">
 
@@ -76,9 +76,10 @@ function Home() {
             </p>
 
             <div className="flex  sm:flex-row gap-4 mt-10">
+              
               <Link
-  to="/create-debate"
-  className="
+                to="/create-debate"
+                className="
     group
     relative
     overflow-hidden
@@ -94,10 +95,10 @@ function Home() {
     hover:-translate-y-0.5
     hover:shadow-[0_0_25px_rgba(139,92,246,0.25)]
   "
->
+              >
 
-  <span
-    className="
+                <span
+                  className="
       absolute
       inset-0
       bg-gradient-to-r
@@ -111,13 +112,13 @@ function Home() {
       transition-transform
       duration-700
     "
-  />
+                />
 
-  <span className="relative">
-    Start A Debate
-  </span>
+                <span className="relative">
+                  Start A Debate
+                </span>
 
-</Link>
+              </Link>
 
               <a
                 href="#how-it-works"
@@ -143,7 +144,7 @@ hover:shadow-[0_0_20px_rgba(139,92,246,0.08)]
               >
                 Learn More
               </a>
-              
+
             </div>
 
           </div>
@@ -191,7 +192,7 @@ hover:shadow-[0_0_20px_rgba(139,92,246,0.08)]
 
           <div className="grid md:grid-cols-2 gap-6">
 
-            <div className="
+            <TiltCard className="
 group
 relative
 overflow-hidden
@@ -218,9 +219,9 @@ hover:shadow-[0_0_30px_rgba(59,130,246,0.12)]
                 A logical opponent focused on reasoning,
                 consistency, and clear argumentation.
               </p>
-            </div>
+            </TiltCard>
 
-            <div className="
+            <TiltCard className="
 group
 relative
 overflow-hidden
@@ -238,18 +239,18 @@ hover:-translate-y-1
 hover:shadow-[0_0_30px_rgba(239,68,68,0.12)]
 ">
 
-  <h3 className="text-2xl font-heading font-serif mb-4">
-    Aggressive Challenger
-  </h3>
+              <h3 className="text-2xl font-heading font-serif mb-4">
+                Aggressive Challenger
+              </h3>
 
-  <p className="text-slate-400">
-    Challenges every weakness instantly.
-    Pushes back hard, questions assumptions,
-    and applies constant pressure to your arguments.
-  </p>
+              <p className="text-slate-400">
+                Challenges every weakness instantly.
+                Pushes back hard, questions assumptions,
+                and applies constant pressure to your arguments.
+              </p>
 
-</div>
-            <div className="
+            </TiltCard>
+            <TiltCard className="
 group
 relative
 overflow-hidden
@@ -275,9 +276,9 @@ hover:shadow-[0_0_30px_rgba(16,185,129,0.12)]
                 Every assumption gets cross-examined.
                 Nothing passes without scrutiny.
               </p>
-            </div>
+            </TiltCard>
 
-            <div className="
+            <TiltCard className="
 group
 relative
 overflow-hidden
@@ -303,9 +304,9 @@ hover:shadow-[0_0_30px_rgba(139,92,246,0.08)]
                 Challenges definitions.
                 Forces deeper thinking behind every claim.
               </p>
-            </div>
+            </TiltCard>
 
-            <div className="
+            <TiltCard className="
 group
 relative
 overflow-hidden
@@ -331,8 +332,8 @@ hover:shadow-[0_0_30px_rgba(245,158,11,0.12)]
                 The AI's goal is to expose flaws in your
                 reasoning from every possible angle.
               </p>
-            </div>
-            <div className="
+            </TiltCard>
+            <TiltCard className="
 group
 relative
 overflow-hidden
@@ -362,13 +363,13 @@ hover:shadow-[0_0_30px_rgba(6,182,212,0.12)]
 
                 But every answer is examined.
               </p>
-            </div>
-    </div>
+            </TiltCard>
+          </div>
 
-            <div className="flex justify-center mt-6">
+          <div className="flex justify-center mt-6">
 
-  <div className="w-full md:w-[60%]">
-    <div className="
+            <div className="w-full md:w-[60%]">
+              <TiltCard className="
 group
 relative
 overflow-hidden
@@ -385,20 +386,20 @@ hover:border-orange-500/40
 hover:-translate-y-1
 hover:shadow-[0_0_30px_rgba(249,115,22,0.12)]
 ">
-              <h3 className="text-2xl font-heading font-serif mb-4">
-                Twitter troll
-              </h3>
+                <h3 className="text-2xl font-heading font-serif mb-4">
+                  Twitter troll
+                </h3>
 
-              <p className="text-slate-400">
-                Dismisses weak arguments instantly.
-                Uses mockery, one-liners, and internet-style
-                counterarguments to challenge your position.
-              </p>
+                <p className="text-slate-400">
+                  Dismisses weak arguments instantly.
+                  Uses mockery, one-liners, and internet-style
+                  counterarguments to challenge your position.
+                </p>
+              </TiltCard>
             </div>
-  </div>
 
 
-            
+
 
           </div>
 
@@ -406,30 +407,30 @@ hover:shadow-[0_0_30px_rgba(249,115,22,0.12)]
 
         <div className="max-w-6xl mx-auto border-t border-slate-800"></div>
 
-        
+
         <section
-  id="how-it-works"
-  className="max-w-6xl mx-auto px-6 py-32"
->
+          id="how-it-works"
+          className="max-w-6xl mx-auto px-6 py-32"
+        >
 
-  <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
 
-    <div className="relative">
+            <div className="relative">
 
-      <div
-        className="
+              <div
+                className="
           absolute
           inset-0
           bg-violet-500/10
           blur-3xl
           rounded-full
         "
-      />
+              />
 
-      <img
-  src="/AIchat.png"
-  alt="DebateArena chat"
-  className="
+              <img
+                src="/AIchat.png"
+                alt="DebateArena chat"
+                className="
     relative
     rounded-2xl
     border
@@ -440,70 +441,70 @@ hover:shadow-[0_0_30px_rgba(249,115,22,0.12)]
     hover:scale-[1.01]
     hover:border-violet-500/30
   "
-/>
+              />
 
-    </div>
+            </div>
 
 
-    <div>
+            <div>
 
-      <p className="text-slate-500 uppercase tracking-widest mb-4">
-        Real-Time Debate Experience
-      </p>
+              <p className="text-slate-500 uppercase tracking-widest mb-4">
+                Real-Time Debate Experience
+              </p>
 
-      <h2 className="text-3xl md:text-5xl  font-serif font-heading mb-8">
-        Not Another AI Chatbot.
-      </h2>
+              <h2 className="text-3xl md:text-5xl  font-serif font-heading mb-8">
+                Not Another AI Chatbot.
+              </h2>
 
-      <p className="text-slate-400 text-lg leading-relaxed mb-10">
-        Every response is generated with full awareness of the conversation.
-        The AI remembers previous arguments, challenges inconsistencies,
-        and adapts its strategy throughout the debate.
-      </p>
+              <p className="text-slate-400 text-lg leading-relaxed mb-10">
+                Every response is generated with full awareness of the conversation.
+                The AI remembers previous arguments, challenges inconsistencies,
+                and adapts its strategy throughout the debate.
+              </p>
 
-      <div className="space-y-8">
+              <div className="space-y-8">
 
-        <div>
-          <h3 className="text-xl font-semibold mb-2">
-            Context-Aware Arguments
-          </h3>
+                <div>
+                  <h3 className="text-xl font-semibold mb-2">
+                    Context-Aware Arguments
+                  </h3>
 
-          <p className="text-slate-400">
-            The AI remembers your previous claims and uses them against you.
-            No repetitive responses. No isolated messages.
-          </p>
-        </div>
+                  <p className="text-slate-400">
+                    The AI remembers your previous claims and uses them against you.
+                    No repetitive responses. No isolated messages.
+                  </p>
+                </div>
 
-        <div>
-          <h3 className="text-xl font-semibold mb-2">
-            Multiple Debate Styles
-          </h3>
+                <div>
+                  <h3 className="text-xl font-semibold mb-2">
+                    Multiple Debate Styles
+                  </h3>
 
-          <p className="text-slate-400">
-            Face a lawyer, philosopher, professional debater,
-            job interviewer, aggressive responder, or even a Twitter troll.
-          </p>
-        </div>
+                  <p className="text-slate-400">
+                    Face a lawyer, philosopher, professional debater,
+                    job interviewer, aggressive responder, or even a Twitter troll.
+                  </p>
+                </div>
 
-        <div>
-          <h3 className="text-xl font-semibold mb-2">
-            Instant Performance Analysis
-          </h3>
+                <div>
+                  <h3 className="text-xl font-semibold mb-2">
+                    Instant Performance Analysis
+                  </h3>
 
-          <p className="text-slate-400">
-            Receive a detailed report with persuasion scores,
-            logic ratings, strongest arguments, weaknesses,
-            and actionable feedback.
-          </p>
-        </div>
+                  <p className="text-slate-400">
+                    Receive a detailed report with persuasion scores,
+                    logic ratings, strongest arguments, weaknesses,
+                    and actionable feedback.
+                  </p>
+                </div>
 
-      </div>
+              </div>
 
-    </div>
+            </div>
 
-  </div>
+          </div>
 
-</section>
+        </section>
 
         <div className="max-w-6xl mx-auto border-t border-slate-800"></div>
 
@@ -515,7 +516,7 @@ hover:shadow-[0_0_30px_rgba(249,115,22,0.12)]
 
           <div className="grid md:grid-cols-3 gap-6">
 
-            <div className="
+            <TiltCard className="
 group
 relative
 overflow-hidden
@@ -525,14 +526,14 @@ to-black
 border
 border-zinc-800
 rounded-2xl
-p-6 md:p-8
+p-6 md:p-8 
 transition-all
 duration-300
 hover:border-violet-500/40
 hover:-translate-y-1
 hover:shadow-[0_0_30px_rgba(139,92,246,0.08)]
 ">
-  
+
               <h3 className="font-semibold text-lg mb-2">
                 Persuasion Score
               </h3>
@@ -540,9 +541,8 @@ hover:shadow-[0_0_30px_rgba(139,92,246,0.08)]
               <p className="text-slate-400">
                 How convincing your arguments were.
               </p>
-            </div>
-
-            <div className="
+            </TiltCard>
+            <TiltCard className="
 group
 relative
 overflow-hidden
@@ -566,8 +566,8 @@ hover:shadow-[0_0_30px_rgba(139,92,246,0.08)]
               <p className="text-slate-400">
                 How consistent and rational your reasoning remained.
               </p>
-            </div>
-            <div className="
+            </TiltCard>
+            <TiltCard className="
 group
 relative
 overflow-hidden
@@ -591,8 +591,8 @@ hover:shadow-[0_0_30px_rgba(139,92,246,0.08)]
               <p className="text-slate-400">
                 The point that had the most impact.
               </p>
-            </div>
-            <div className="
+            </TiltCard>
+            <TiltCard className="
 group
 relative
 overflow-hidden
@@ -602,7 +602,7 @@ to-black
 border
 border-zinc-800
 rounded-2xl
-p-6 md:p-8
+p-7 md:p-8
 transition-all
 duration-300
 hover:border-violet-500/40
@@ -616,8 +616,8 @@ hover:shadow-[0_0_30px_rgba(139,92,246,0.08)]
               <p className="text-slate-400">
                 The argument most vulnerable to criticism.
               </p>
-            </div>
-            <div className="
+            </TiltCard>
+            <TiltCard className="
 group
 relative
 overflow-hidden
@@ -641,9 +641,8 @@ hover:shadow-[0_0_30px_rgba(139,92,246,0.08)]
               <p className="text-slate-400">
                 Practical feedback to sharpen future debates.
               </p>
-            </div>
-
-            <div className="
+            </TiltCard>
+            <TiltCard className="
 group
 relative
 overflow-hidden
@@ -667,7 +666,7 @@ hover:shadow-[0_0_30px_rgba(139,92,246,0.08)]
               <p className="text-slate-400">
                 A final verdict on who made the stronger case.
               </p>
-            </div>
+            </TiltCard>
 
           </div>
 
@@ -675,7 +674,7 @@ hover:shadow-[0_0_30px_rgba(139,92,246,0.08)]
 
         <div className="max-w-6xl mx-auto border-t border-slate-800"></div>
 
-        
+
         <section className="max-w-5xl mx-auto px-6 py-32 text-center">
 
           <h2 className="text-5xl font-heading font-serif mb-6">
@@ -689,9 +688,9 @@ hover:shadow-[0_0_30px_rgba(139,92,246,0.08)]
 
           </p>
 
-         <Link
-  to="/create-debate"
-  className="
+          <Link
+            to="/create-debate"
+            className="
     group
     relative
     overflow-hidden
@@ -707,10 +706,10 @@ hover:shadow-[0_0_30px_rgba(139,92,246,0.08)]
     hover:-translate-y-0.5
     hover:shadow-[0_0_25px_rgba(139,92,246,0.25)]
   "
->
+          >
 
-  <span
-  className="
+            <span
+              className="
     absolute
     top-0
     left-0.5
@@ -729,13 +728,13 @@ hover:shadow-[0_0_30px_rgba(139,92,246,0.08)]
     transition-all
     duration-300
   "
-/>
+            />
 
-  <span className="relative">
-    Start Your First Debate
-  </span>
+            <span className="relative">
+              Start Your First Debate
+            </span>
 
-</Link>
+          </Link>
 
         </section>
         <Footer />
