@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import supabase from "../lib/supabase";
 import { useNavigate } from "react-router-dom";
+import CursorGlow from "../Component/CursorGlow";
 
 function Leaderboard() {
   const [leaderboard, setLeaderboard] = useState([]);
@@ -154,25 +155,23 @@ function Leaderboard() {
   if (loading) {
     return (
       <div className="min-h-screen bg-[#09090B] text-white flex items-center justify-center">
-
         <div className="text-center">
-
+          <CursorGlow />
           <div className="flex justify-center mb-6">
-
             <div
               className="
-          w-16
-          h-16
-
-          rounded-full
-
-          border-2
-          border-amber-500/20
-          border-t-amber-400
-
-          animate-spin
-        "
-            />
+              w-16
+              h-16
+              
+              rounded-full
+              
+              border-2
+              border-amber-500/20
+              border-t-amber-400
+              
+              animate-spin
+              "
+              />
 
           </div>
 

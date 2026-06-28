@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import CreateDebate from "./Pages/CreateDebate";
@@ -10,78 +9,83 @@ import ProtectedRoute from "./Component/ProtectedRoute";
 import DebateHistory from "./Pages/History";
 import Leaderboard from "./Pages/Leaderboard";
 import Profile from "./Pages/Profile";
+import Layout from "./Pages/Layout";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-          path="/"
-          element={<Home />}
-        />
 
-        <Route
-          path="/create-debate/"
-          element={
-            <ProtectedRoute>
-              <CreateDebate />
-            </ProtectedRoute>
-          }
-        />
+  <Route element={<Layout />}>
 
-        <Route
-          path="/profile/"
-          element={
-            <ProtectedRoute>
-              <Profile />
-            </ProtectedRoute>
-          }
-        />
+    <Route
+      path="/"
+      element={<Home />}
+    />
 
-        <Route
-          path="/login"
-          element={<Login />}
-        />
+    <Route
+      path="/leaderboard"
+      element={<Leaderboard />}
+    />
 
-        <Route
-          path="/signup"
-          element={<Signup />}
-        />
-        <Route
-          path="/leaderboard"
-          element={<Leaderboard />}
-        />
+    <Route
+      path="/login"
+      element={<Login />}
+    />
 
-        <Route
-          path="/debate/:debateId"
-          element={
-            <ProtectedRoute>
+    <Route
+      path="/signup"
+      element={<Signup />}
+    />
 
-              <ChatDebate />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/history"
-          element={
-            <ProtectedRoute>
+    <Route
+      path="/create-debate"
+      element={
+        <ProtectedRoute>
+          <CreateDebate />
+        </ProtectedRoute>
+      }
+    />
 
-              <DebateHistory />
-            </ProtectedRoute>
-          }
-        />
+    <Route
+      path="/profile"
+      element={
+        <ProtectedRoute>
+          <Profile />
+        </ProtectedRoute>
+      }
+    />
 
+    <Route
+      path="/debate/:debateId"
+      element={
+        <ProtectedRoute>
+          <ChatDebate />
+        </ProtectedRoute>
+      }
+    />
 
-        <Route
-          path="/DebateReport/:debateId"
-          element={
-            <ProtectedRoute>
+    <Route
+      path="/history"
+      element={
+        <ProtectedRoute>
+          <DebateHistory />
+        </ProtectedRoute>
+      }
+    />
 
-              <DebateReport />
-            </ProtectedRoute>
-          }
-        />
-      </Routes>
+    <Route
+      path="/DebateReport/:debateId"
+      element={
+        <ProtectedRoute>
+          <DebateReport />
+        </ProtectedRoute>
+      }
+    />
+
+  </Route>
+
+</Routes>
     </BrowserRouter>
   );
 }
