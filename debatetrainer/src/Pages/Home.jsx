@@ -3,6 +3,8 @@ import Navbar from "../Component/Navbar";
 import Footer from "../Component/Footer";
 import { useEffect } from "react";
 import supabase from "../lib/supabase";
+import CursorGlow from "../Component/CursorGlow";
+import CursorParticles from "../Component/CursorParticles";
 
 
 function Home() {
@@ -49,7 +51,9 @@ function Home() {
   return (
     <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(124,58,237,0.12),transparent_50%)]">
       <div className="relative min-h-screen bg-[#09090B] text-white overflow-hidden">
-
+        
+        <CursorGlow />
+        <CursorParticles />
         <Navbar />
         <section className="max-w-6xl mx-auto px-6 pt-32 pb-24">
 
