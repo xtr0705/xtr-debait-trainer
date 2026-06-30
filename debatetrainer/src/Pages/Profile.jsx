@@ -74,14 +74,13 @@ function Profile() {
   useEffect(() => {
     const userInfo = async () => {
       const { data: { user }, error } = await supabase.auth.getUser();
-      console.log(user);
 
       if (user) {
         const { data: profile, error } = await supabase
           .from('profiles')
           .select()
           .eq('id', user.id)
-        console.log(profile);
+
         setUsername(profile[0].username);
         if (profile[0].pfp) {
           setPfp(profile[0].pfp);
@@ -92,7 +91,6 @@ function Profile() {
           year: "2-digit",
         }).format(new Date(timestamp));
 
-        console.log(formattedDate);
         setDoc(formattedDate);
 
         const rawReportData = []
@@ -100,7 +98,7 @@ function Profile() {
           .from('debate_reports')
           .select()
           .eq('user_id', user.id)
-        console.log(reports);
+          
         reports.forEach((report) => {
           rawReportData.push(report);
         })
@@ -128,10 +126,6 @@ function Profile() {
           }
         }
 
-        console.log(rawReportData);
-
-
-
         const modelObject = {
           highest_debate: topDebate,
           highest_debateId: topDebateId,
@@ -145,8 +139,6 @@ function Profile() {
           debate_No: rawReportData.length
         };
         setProfileFinalInfo(modelObject)
-        console.log(modelObject);
-
 
         if (error) {
           console.log(error);

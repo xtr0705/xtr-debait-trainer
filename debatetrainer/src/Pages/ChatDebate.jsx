@@ -154,9 +154,9 @@ Example format:
         .replace(/```/g, "")
         .trim();
 
-      console.log("RAW GEMINI:", reportText);
+     
       const report = JSON.parse(cleaned);
-      console.log("PARSED REPORT:", report);
+  
 
       try {
         const { data: userData } = await supabase.auth.getUser();

@@ -19,7 +19,6 @@ function Home() {
           .from('profiles')
           .select('id')
           .eq('id', user.id)
-        console.log(profile);
 
         if (error) {
           console.log(error);
