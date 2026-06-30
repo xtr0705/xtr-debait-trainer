@@ -410,7 +410,7 @@ text-white
 flex
 flex-col
 relative
-overflow-hidden
+
 ">
       <div
   className="absolute inset-0 pointer-events-none"
@@ -625,7 +625,7 @@ ${theme.border}
               className="
             bg-violet-500
             text-white
-            
+            py-5
             w-[80px]
             font-semibold
             hover:bg-violet-400
@@ -801,6 +801,7 @@ ${theme.border}
             border-zinc-800
 
             py-3
+            px-3
 
             hover:border-zinc-700
             hover:bg-zinc-900
@@ -826,6 +827,7 @@ ${theme.border}
               text-white
 
               py-3
+              px-3
 
               hover:bg-red-400
               hover:shadow-[0_0_20px_rgba(239,68,68,0.25)]

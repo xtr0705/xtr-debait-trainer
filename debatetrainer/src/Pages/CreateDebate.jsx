@@ -419,7 +419,7 @@ function CreateDebate() {
 
               </div>
 
-              <div className="flex gap-4">
+              <div className="flex gap-4 justify-center ">
 
                 <Tap>
                   <button
@@ -431,11 +431,13 @@ function CreateDebate() {
 
       w-full
 
+      px-4
       bg-violet-500
       text-white
 
       py-4
-      mt-8
+      mt-6
+      mb-6
 
       font-semibold
 

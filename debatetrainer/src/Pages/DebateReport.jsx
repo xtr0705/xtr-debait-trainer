@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import supabase from "../lib/supabase";
 import { useEffect, useState } from "react";
+import Tap from "../Component/Tap";
 
 
 function DebateReport() {
@@ -317,57 +318,61 @@ overflow-hidden
 
           <div className="flex justify-center gap-7.5" >
 
-            <button
-              onClick={
-                () => navigate('/')
-              }
-              className="
+            <Tap>
+              <button
+                onClick={
+                  () => navigate('/')
+                }
+                className="
 
-group
-relative
-overflow-hidden
+  group
+  relative
+  overflow-hidden
 
-bg-violet-500
-text-white
+  bg-violet-500
+  text-white
 
-px-8
-py-4
+  px-8
+  py-4
 
-font-semibold
+  font-semibold
 
-transition-all
-duration-300
+  transition-all
+  duration-300
 
-hover:bg-violet-400
-hover:-translate-y-0.5
-hover:shadow-[0_0_25px_rgba(139,92,246,0.25)]
-"
-            >
-              Home
-            </button>
+  hover:bg-violet-400
+  hover:-translate-y-0.5
+  hover:shadow-[0_0_25px_rgba(139,92,246,0.25)]
+  "
+              >
+                Home
+              </button>
+            </Tap>
 
-            <button className="
-border
-border-zinc-800
+            <Tap>
+              <button className="
+  border
+  border-zinc-800
 
-bg-zinc-900/50
+  bg-zinc-900/50
 
-px-8
-py-4
+  px-8
+  py-4
 
-transition-all
-duration-300
+  transition-all
+  duration-300
 
-hover:border-violet-500/40
-hover:bg-zinc-900
-hover:-translate-y-0.5
+  hover:border-violet-500/40
+  hover:bg-zinc-900
+  hover:-translate-y-0.5
 
-hover:shadow-[0_0_20px_rgba(139,92,246,0.08)]
-"
-              onClick={() => {
-                navigate('/history');
-              }}
-            >History</button>
+  hover:shadow-[0_0_20px_rgba(139,92,246,0.08)]
+  "
+                onClick={() => {
+                  navigate('/history');
+                }}
+              >History</button>
+            </Tap>
           </div>
 
         </div>
