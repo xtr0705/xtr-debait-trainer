@@ -89,54 +89,64 @@ justify-center
 
 
   <div className="relative border-b border-zinc-800 bg-[#09090B]/80 backdrop-blur-xl">
-    <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+  <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
 
-      <h2 className="font-serif text-xl">
-        DebateArena
-      </h2>
+    <h2 className="font-serif text-lg sm:text-xl">
+      DebateArena
+    </h2>
 
-      <div className="flex gap-3">
+    <div className="flex justify-center gap-3 w-full sm:w-auto">
 
-        <Tap>
-          <button
-            onClick={() => navigate("/")}
-            className="
-              border
-              border-zinc-800
-              px-5
-              py-2
-              hover:border-violet-500/30
-              hover:bg-zinc-900
-              transition-all
-              duration-300
-            "
-          >
-            Home
-          </button>
-        </Tap>
+      <Tap>
+        <button
+          onClick={() => navigate("/")}
+          className="
+            w-32 sm:w-auto
 
-        <Tap>
-          <button
-            onClick={() => navigate("/leaderboard")}
-            className="
-              bg-violet-500
-              text-white
-              px-5
-              py-2
-              hover:bg-violet-400
-              hover:shadow-[0_0_20px_rgba(139,92,246,0.25)]
-              transition-all
-              duration-300
-            "
-          >
-            Leaderboard
-          </button>
-        </Tap>
+            border
+            border-zinc-800
 
-      </div>
+            px-5
+            py-2
+
+            hover:border-violet-500/30
+            hover:bg-zinc-900
+
+            transition-all
+            duration-300
+          "
+        >
+          Home
+        </button>
+      </Tap>
+
+      <Tap>
+        <button
+          onClick={() => navigate("/leaderboard")}
+          className="
+            w-32 sm:w-auto
+
+            bg-violet-500
+            text-white
+
+            px-5
+            py-2
+
+            hover:bg-violet-400
+            hover:shadow-[0_0_20px_rgba(139,92,246,0.25)]
+
+            transition-all
+            duration-300
+          "
+        >
+          Leaderboard
+        </button>
+      </Tap>
 
     </div>
+
   </div>
+</div>
 
       <div className="relative p-6">
 
