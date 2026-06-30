@@ -23,7 +23,7 @@ function ChatDebate() {
     "Generating improvement feedback...",
     "Finalizing report..."
   ];
-  const [timeLeft, setTimeLeft] = useState(0);
+  const [timeLeft, setTimeLeft] = useState(null);
 
   const [loadingText, setLoadingText] = useState(
     loadingMessages[0]
@@ -283,6 +283,17 @@ Example format:
       }
     }
     const fetchDebateInfo = async () => {
+      const { data: report } = await supabase
+        .from("debate_reports")
+        .select("id")
+        .eq("debate_id", debateId)
+        .maybeSingle();
+
+      if (report) {
+        navigate(`/DebateReport/${debateId}`, { replace: true });
+        return;
+      }
+
       const { data, error } = await supabase.from('debates').select('*').eq('id', debateId).single();
       if (error) {
         console.log(error);
@@ -301,7 +312,7 @@ Example format:
   }, [debateinfo])
 
   useEffect(() => {
-    if (timeLeft <= 0) return;
+    if (timeLeft === null || timeLeft <= 0) return;
 
     const interval = setInterval(() => {
       setTimeLeft(prev => prev - 1);
@@ -311,10 +322,14 @@ Example format:
   }, [timeLeft])
 
   useEffect(() => {
-    if (timeLeft === 0 && debateinfo) {
+    if (timeLeft === null) {
+      return;
+    }
+
+    if (timeLeft === 0) {
       confirmEndDebate();
     }
-  }, [timeLeft, debateinfo]);
+  }, [timeLeft]);
 
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
@@ -479,7 +494,6 @@ backdrop-blur-xl backdrop-blur sticky top-0 z-10">
             <p
               className={`
     mt-2
-    font-mono
     text-lg
     ${timeLeft <= 30
                   ? "text-red-400 animate-pulse"
