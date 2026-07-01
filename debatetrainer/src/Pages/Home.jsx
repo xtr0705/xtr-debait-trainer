@@ -332,7 +332,7 @@ function Home() {
   hover:-translate-y-1
   hover:shadow-[0_0_30px_rgba(245,158,11,0.12)]
   ">
-                <h3 className="text-2xl font-heading font-serif mb-4">
+                <h3 className="text-2xl font-heading font-serif mb-10">
                   Devil's Advocate
                 </h3>
 
@@ -564,14 +564,14 @@ function Home() {
   border
   border-zinc-800
   rounded-2xl
-  p-6 md:p-8
+  p-6 md:p-6.5
   transition-all
   duration-300
   hover:border-violet-500/40
   hover:-translate-y-1
   hover:shadow-[0_0_30px_rgba(139,92,246,0.08)]
   ">
-                <h3 className="font-semibold text-lg mb-2">
+                <h3 className="font-semibold text-lg ">
                   Logic Score
                 </h3>
 
