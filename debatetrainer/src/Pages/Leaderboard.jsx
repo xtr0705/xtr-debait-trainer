@@ -402,7 +402,7 @@ function Leaderboard() {
                   </p>
 
                   <p className="text-md font-bold text-violet-400">
-                    {userData ? userFinalData.avgOverall : 'N/A'}
+                    {userFinalData?.avgOverall ?? "N/A"}
                   </p>
                 </div>
 
@@ -412,7 +412,7 @@ function Leaderboard() {
                   </p>
 
                   <p className="text-md text-slate-300">
-                    {userData ? userFinalData.avgLogic : 'N/A'}
+                    {userFinalData?.avgLogic ?? "N/A"}
                   </p>
                 </div>
 
@@ -422,7 +422,7 @@ function Leaderboard() {
                   </p>
 
                   <p className="text-md text-slate-300">
-                    {userData ? userFinalData.avgPersuasion : 'N/A'}
+                    {userFinalData?.avgPersuasion ?? "N/A"}
                   </p>
                 </div>
 
@@ -432,7 +432,7 @@ function Leaderboard() {
                   </p>
 
                   <p className="text-md text-slate-300">
-                    {!userData ? 'N/A' : userFinalData.debateCount}
+                    {userFinalData?.debateCount ?? "N/A"}
                   </p>
                 </div>
 
