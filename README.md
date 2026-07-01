@@ -18,13 +18,21 @@ DebateArena is an AI-powered debate platform where users can engage in structure
 
 * Real-time AI debates
 
+* User Profiles with debate highlights
+
+* Leaderboard based on average overall performance
+
 * AI-generated debate reports
 
-* Performance scoring
+### AI Performance Analysis
 
-  * Persuasion Score
-  * Logic Score
-  * Overall Score
+- Persuasion Score
+- Logic Score
+- Overall Score
+- Strongest Argument
+- Weakest Argument
+- Personalized Improvement Tips
+- Debate Winner Detection
 
 * Detailed feedback
 
@@ -63,7 +71,7 @@ DebateArena is an AI-powered debate platform where users can engage in structure
 
 ## Home Page
 
-![Home Page](./debatetrainer/screenshots/home.png)
+![Home Page](./debatetrainer/screenshots/Screenshot-2026-07-01-161610.png)
 
 ## Debate Chat
 
@@ -73,6 +81,13 @@ DebateArena is an AI-powered debate platform where users can engage in structure
 ## Debate Report
 
 ![Debate Report](./debatetrainer/screenshots/report.png)
+
+## Leaderboard
+![Leaderboard](./debatetrainer/screenshots/Screenshot-2026-07-01-162432.png)
+
+## Profile
+![Profile](./debatetrainer/screenshots/Screenshot-2026-07-01-163006.png)
+
 
 ## Installation
 
@@ -112,11 +127,13 @@ npm run build
 ## Future Improvements
 
 * Public debate sharing
-* Leaderboards
 * Additional debate styles
 * Debate analytics
-* User profiles
 * Debate replay system
+
+## Feedback
+
+Suggestions, issues, and contributions are always welcome. Feel free to open an issue or submit a pull request.
 
 ## License
 
